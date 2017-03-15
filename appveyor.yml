@@ -1,6 +1,8 @@
 version: 1.0.{build}
+
 pull_requests:
   do_not_increment_build_number: true
+
 environment:
   source_dir: public
   git_name: Matt Horgan
@@ -9,12 +11,17 @@ environment:
   target_branch: master
   access_token:
     secure: RcRrztcM59Im5xl40yelyNPtMZ8ydkEtFQ8nzen+4tcId4U8eT8yrTxTDOyUnJZu
+
 install:
   - cmd: cinst hugo
+
 build_script:
   - cmd: hugo
+
 test: off
-after_deploy:
+
+# Add newly built site to the master branch 
+on_success:
  - ps: git config --global credential.helper store 
  - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - ps: $repo = git config remote.origin.url
