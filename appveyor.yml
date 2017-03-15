@@ -1,0 +1,30 @@
+version: 1.0.{build}
+pull_requests:
+  do_not_increment_build_number: true
+environment:
+  source_dir: public
+  git_name: Matt Horgan
+  git_email: matt@matthorgan.xyz
+  target_dir: temp
+  target_branch: master
+  access_token:
+    secure: RcRrztcM59Im5xl40yelyNPtMZ8ydkEtFQ8nzen+4tcId4U8eT8yrTxTDOyUnJZu
+install:
+  - cmd: cinst hugo
+build_script:
+  - cmd: hugo
+test: off
+after_deploy:
+ - ps: git config --global credential.helper store 
+ - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+ - ps: $repo = git config remote.origin.url
+ - ps: New-Item -Path $env:target_dir -ItemType Folder 
+ - ps: $revision = git rev-parse HEAD
+ - ps: git clone --branch $env:target_branch $repo $env:target_dir 
+ - ps: Copy-Item -Path .\$env:source_dir\* -Destination $env:target_dir -Recurse -Force -Exclude @(".git","appveyor.yml")
+ - ps: cd $env:target_dir
+ - ps: git config --global user.name $env:git_name
+ - ps: git config --global user.email $env:git_email
+ - ps: git add --all 
+ - ps: git commit --allow-empty -m "Built from commit $revision
+ - ps: git push $repo $env:target_branch 
