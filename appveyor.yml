@@ -23,16 +23,15 @@ test: off
 
 # Add newly built site to the master branch 
 on_success:
- - cmd: git config --global credential.helper store 
+ - ps: git config --global credential.helper store 
  - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - ps: $revision = git rev-parse HEAD
  - ps: New-Item -Path $env:target_dir -ItemType Directory
  - ps: cd .\$env:target_dir
- - ps: $ErrorActionPreference = "SilentlyContinue"
- - ps: git clone --branch $env:target_branch $env:repo (Get-Location).Path 
+ - ps: & cmd /c "git clone --branch $env:target_branch $env:repo (Get-Location).Path" 
  - ps: Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(".git","appveyor.yml")
- - cmd: git config --global user.name $env:git_name
- - cmd: git config --global user.email $env:git_email
- - cmd: git add --all 
- - cmd: git commit --allow-empty -m "Built from commit $revision
- - cmd: git push $repo $env:target_branch 
+ - ps: git config --global user.name $env:git_name
+ - ps: git config --global user.email $env:git_email
+ - ps: git add --all 
+ - ps: git commit --allow-empty -m "Built from commit $revision
+ - ps: git push $repo $env:target_branch 
