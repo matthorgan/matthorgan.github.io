@@ -9,6 +9,7 @@ environment:
   git_email: matt@matthorgan.xyz
   target_dir: temp
   target_branch: master
+  repo: https://github.com/matthorgan/matthorgan.github.io.git
   access_token:
     secure: RcRrztcM59Im5xl40yelyNPtMZ8ydkEtFQ8nzen+4tcId4U8eT8yrTxTDOyUnJZu
 
@@ -24,9 +25,8 @@ test: off
 on_success:
  - cmd: git config --global credential.helper store 
  - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
- - ps: $repo = git config remote.origin.url
  - ps: $revision = git rev-parse HEAD
- - cmd: git clone --branch $env:target_branch $repo $env:target_dir 
+ - cmd: git clone --branch $env:target_branch $env:repo $env:target_dir 
  - ps: Copy-Item -Path .\$env:source_dir\* -Destination $env:target_dir -Recurse -Force -Exclude @(".git","appveyor.yml")
  - ps: cd $env:target_dir
  - cmd: git config --global user.name $env:git_name
