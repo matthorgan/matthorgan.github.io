@@ -25,7 +25,6 @@ on_success:
  - ps: git config --global credential.helper store 
  - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - ps: $repo = git config remote.origin.url
- - ps: New-Item -Path $env:target_dir -ItemType Directory
  - ps: $revision = git rev-parse HEAD
  - ps: git clone --branch $env:target_branch $repo $env:target_dir 
  - ps: Copy-Item -Path .\$env:source_dir\* -Destination $env:target_dir -Recurse -Force -Exclude @(".git","appveyor.yml")
