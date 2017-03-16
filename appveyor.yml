@@ -28,7 +28,7 @@ on_success:
  - ps: $revision = git rev-parse HEAD
  - ps: New-Item -Path $env:target_dir -ItemType Directory
  - ps: cd .\$env:target_dir
- - ps: git clone --branch $env:target_branch $env:repo . 
+ - ps: git clone --branch $env:target_branch $env:repo (Get-Location).Path
  - ps: Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(".git","appveyor.yml")
  - cmd: git config --global user.name $env:git_name
  - cmd: git config --global user.email $env:git_email
