@@ -23,15 +23,15 @@ test: off
 
 # Add newly built site to the master branch 
 on_success:
- - ps: git config --global credential.helper store 
+ - ps: Invoke-Expression "git config --global credential.helper store" 2>&1 
  - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
- - ps: $revision = git rev-parse HEAD
+ - ps: $revision = Invoke-Expression "git rev-parse HEAD" 2>&1 
  - ps: New-Item -Path $env:target_dir -ItemType Directory
  - ps: cd .\$env:target_dir
  - ps: Invoke-Expression "git clone --branch $env:target_branch $env:repo (Get-Location).Path" 2>&1 
  - ps: Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(".git","appveyor.yml")
- - ps: git config --global user.name $env:git_name
- - ps: git config --global user.email $env:git_email
- - ps: git add --all 
- - ps: git commit --allow-empty -m "Built from commit $revision"
- - ps: git push origin $env:target_branch 
+ - ps: Invoke-Expression "git config --global user.name $env:git_name" 2>&1
+ - ps: Invoke-Expression "git config --global user.email $env:git_email" 2>&1
+ - ps: Invoke-Expression "git add --all" 2>&1
+ - ps: Invoke-Expression "git commit --allow-empty -m 'Built from commit $revision'" 2>&1
+ - ps: Invoke-Expression "git push origin $env:target_branch" 2>&1 
