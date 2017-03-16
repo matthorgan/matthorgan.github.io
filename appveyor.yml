@@ -34,4 +34,4 @@ on_success:
  - ps: git config --global user.email $env:git_email
  - ps: git add --all 
  - ps: git commit --allow-empty -m "Built from commit $revision"
- - ps: git push $repo $env:target_branch 
+ - ps: git push origin $env:target_branch 
