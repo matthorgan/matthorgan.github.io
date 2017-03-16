@@ -27,9 +27,9 @@ on_success:
  - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
  - ps: $revision = git rev-parse HEAD
  - ps: New-Item -Path $env:target_dir -ItemType Directory
- - cmd: git clone --branch $env:target_branch $env:repo $env:target_dir 
- - ps: Copy-Item -Path .\$env:source_dir\* -Destination $env:target_dir -Recurse -Force -Exclude @(".git","appveyor.yml")
- - ps: cd $env:target_dir
+ - cmd: cd $env:target_dir
+ - cmd: git clone --branch $env:target_branch $env:repo 
+ - ps: Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(".git","appveyor.yml")
  - cmd: git config --global user.name $env:git_name
  - cmd: git config --global user.email $env:git_email
  - cmd: git add --all 
