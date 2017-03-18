@@ -63,4 +63,20 @@ Right, now we've got our new Hugo site configured the way we want it, let's set 
 
 ## Step 2. Setting up Github Pages to work with our new Hugo site
 
-To be continued... 
+If you haven't already got a Github account, head over to [GitHub](https://github.com) and sign up for one. Once you've got your account set up, create a new repository and call it yourusername.github.io e.g. mine is matthorgan.github.io. 
+
+On my local machine I use posh-git which integrates Git nicely into PowerShell (Including tab completion). To install posh-git, simply run the following from PowerShell:
+```powershell
+choco install poshgit -y
+```
+*Note: You may need to reload your PowerShell session to use the Git commands from PowerShell.*
+<br><br>
+From PowerShell, browse to the root directory of your Hugo site and run the following commands to set up your local repository and push it to your Github repo:
+```powershell
+git init
+git add --all
+git commit -m "Initial Hugo commit"
+git remote add origin https://github.com/yourusername/yourusername.github.io.git
+git push -u origin source
+``` 
+*Note: Replace 'yourusername' with your actual Github username and repo name*
