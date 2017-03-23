@@ -104,3 +104,10 @@ git push -u origin master
 ```
 
 You should now have your website online and browsable at https://yourusername.github.io - take a moment to bask in its unfinished glory before we move on to the cool stuff! 
+
+## Step 3. Using AppVeyor to automate the Hugo build
+
+Having our newly generated website up and running already is cool but each time you add/modify any of the static content, the site will need to be rebuilt and pushed up to GitHub. That's at least two buttons more than I want to have to press so we're going to use AppVeyor to automate it for us.
+
+
+## Step 4. Setting up a custom domain with GitHub Pages (Optional)
