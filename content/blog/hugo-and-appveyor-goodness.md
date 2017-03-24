@@ -108,6 +108,21 @@ You should now have your website online and browsable at https://yourusername.gi
 ## Step 3. Using AppVeyor to automate the Hugo build
 
 Having our newly generated website up and running already is cool but each time you add/modify any of the static content, the site will need to be rebuilt and pushed up to GitHub. That's at least two buttons more than I want to have to press so we're going to use AppVeyor to automate it for us.
+<br><br>
+Head over to [AppVeyor](https://www.appveyor.com/) and sign up with GitHub if you haven't already got an account. Once you're logged in, you should be able to add your GitHub pages repo as a new project by clicking Projects --> New Project and selecting your GitHub repo. 
+
+At this point, we have two options on how we want to configure the project. You can edit the settings of your project and configure everything within the AppVeyor UI or you can create an appveyor.yml file with the relevant settings and place it in the root of your GitHub repo. Here's what you'll see in the AppVeyor UI: 
+<br><br>
+![](/appveyor-example-settings.PNG)
+
+You can see from the menu in the above screenshot that there are so many possibilities when it comes to the configuration of your project. A cool feature of the UI is that you can export to an appveyor.yml file which makes it really easy to understand what's going on. Another great way to understand all of the possible settings within an appveyor.yml file is to check out this reference guide [here](https://www.appveyor.com/docs/appveyor-yml/).  
+*Note: The UI and appveyor.yml are mutually exclusive so you'll have to pick one or the other.*
+<br><br>
+
+With so many options available, it's important to understand exactly what you want your build to accomplish. To stop me from going off on a tangent, I put together some basic pseudo code logic for what I needed AppVeyor to do: 
+
+
+
 
 
 ## Step 4. Setting up a custom domain with GitHub Pages (Optional)
