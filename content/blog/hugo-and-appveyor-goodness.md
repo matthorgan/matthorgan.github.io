@@ -117,12 +117,60 @@ At this point, we have two options on how we want to configure the project. You 
 
 You can see from the menu in the above screenshot that there are so many possibilities when it comes to the configuration of your project. A cool feature of the UI is that you can export to an appveyor.yml file which makes it really easy to understand what's going on. Another great way to understand all of the possible settings within an appveyor.yml file is to check out this reference guide [here](https://www.appveyor.com/docs/appveyor-yml/).  
 *Note: The UI and appveyor.yml are mutually exclusive so you'll have to pick one or the other.*
-<br><br>
-
-With so many options available, it's important to understand exactly what you want your build to accomplish. To stop me from going off on a tangent, I put together some basic pseudo code logic for what I needed AppVeyor to do: 
 
 
+With so many options available, it's important to understand exactly what you want your build to accomplish. To stop me from going off on a tangent, I put together a basic flow for what I needed AppVeyor to do: 
 
+1. Clone the 'source' branch into the AppVeyor build 
+2. Set up environment by installing Hugo
+3. Build site with Hugo  
+4. Clone 'master' branch of GitHub Pages repo
+5. Copy all newly generated content into the newly cloned 'master' directory 
+6. Add and commit new files to 'master' branch 
+7. Push new commits back up to master 
 
+If you have a look back at the screenshot of the AppVeyor settings, you can see an option to specify a default branch. I set this to source which took care of point 1 in my flow. 
+
+Below is the final appveyor.yml file that I ended up with (I'll explain it in more detail shortly). I pushed this to my 'source' branch which instructs AppVeyor to execute the build every time something new is pushed to the source branch e.g. a new blog post. 
+
+```yaml
+version: 1.0.{build}
+
+pull_requests:
+  do_not_increment_build_number: true
+
+environment:
+  source_dir: public
+  git_name: Matt Horgan
+  git_email: matt@matthorgan.xyz
+  target_dir: temp
+  target_branch: master
+  repo: https://github.com/matthorgan/matthorgan.github.io.git
+  access_token:
+    secure: RcRrztcM59Im5xl40yelyNPtMZ8ydkEtFQ8nzen+4tcId4U8eT8yrTxTDOyUnJZu
+
+install:
+  - cmd: cinst hugo
+
+build_script:
+  - cmd: hugo
+
+test: off
+
+# Add newly built site to the master branch 
+on_success:
+ - ps: Invoke-Expression "git config --global credential.helper store" 2>&1 
+ - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+ - ps: $revision = Invoke-Expression "git rev-parse HEAD" 2>&1 
+ - ps: New-Item -Path $env:target_dir -ItemType Directory
+ - ps: cd .\$env:target_dir
+ - ps: Invoke-Expression "git clone --branch $env:target_branch $env:repo (Get-Location).Path" 2>&1 
+ - ps: Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(".git","appveyor.yml")
+ - ps: Invoke-Expression "git config --global user.name $env:git_name" 2>&1
+ - ps: Invoke-Expression "git config --global user.email $env:git_email" 2>&1
+ - ps: Invoke-Expression "git add --all" 2>&1
+ - ps: Invoke-Expression "git commit --allow-empty -m 'Built from commit $revision'" 2>&1
+- ps: Invoke-Expression "git push origin $env:target_branch" 2>&1 
+```
 
 ## Step 4. Setting up a custom domain with GitHub Pages (Optional)
