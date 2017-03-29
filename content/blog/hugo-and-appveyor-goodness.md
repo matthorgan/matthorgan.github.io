@@ -129,7 +129,7 @@ With so many options available, it's important to understand exactly what you wa
 6. Add and commit new files to 'master' branch 
 7. Push new commits back up to master 
 
-If you have a look back at the screenshot of the AppVeyor settings, you can see an option to specify a default branch. I set this to source which took care of point 1 in my flow. 
+If you have a look back at the screenshot of the AppVeyor settings, you can see an option to specify a default branch. I made sure to set this to my 'source' branch which ensures AppVeyor clones the 'source' branch into the AppVeyor build.
 
 Below is the final appveyor.yml file that I ended up with (I'll explain it in more detail shortly). I pushed this to my 'source' branch which instructs AppVeyor to execute the build every time something new is pushed to the source branch e.g. a new blog post. 
 
@@ -172,5 +172,21 @@ on_success:
  - ps: Invoke-Expression "git commit --allow-empty -m 'Built from commit $revision'" 2>&1
 - ps: Invoke-Expression "git push origin $env:target_branch" 2>&1 
 ```
+
+Some of the settings are self-explanatory but I'll go through the different sections and explain what's going on:
+
+```yaml
+environment:
+  source_dir: public
+  git_name: Matt Horgan
+  git_email: matt@matthorgan.xyz
+  target_dir: temp
+  target_branch: master
+  repo: https://github.com/matthorgan/matthorgan.github.io.git
+  access_token:
+    secure: RcRrztcM59Im5xl40yelyNPtMZ8ydkEtFQ8nzen+4tcId4U8eT8yrTxTDOyUnJZu
+
+```
+In the above section, we set up our environment variables which get used further down in the appveyor.yml file. The **crucial** part of this section is the secure access token which must be created to give AppVeyor permissions to push to your repo. For a great guide on how to set this up, check out [this article on the AppVeyor site](https://www.appveyor.com/docs/how-to/git-push/).
 
 ## Step 4. Setting up a custom domain with GitHub Pages (Optional)
