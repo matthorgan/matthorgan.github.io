@@ -19,8 +19,6 @@ install:
 build_script:
   - cmd: hugo
 
-test: off
-
 # Add newly built site to the master branch 
 on_success:
  - ps: Invoke-Expression "git config --global credential.helper store" 2>&1 

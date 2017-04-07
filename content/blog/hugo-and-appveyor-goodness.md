@@ -155,8 +155,6 @@ install:
 build_script:
   - cmd: hugo
 
-test: off
-
 # Add newly built site to the master branch 
 on_success:
  - ps: Invoke-Expression "git config --global credential.helper store" 2>&1 
@@ -188,5 +186,18 @@ environment:
 
 ```
 In the above section, we set up our environment variables which get used further down in the appveyor.yml file. The **crucial** part of this section is the secure access token which must be created to give AppVeyor permissions to push to your repo. For a great guide on how to set this up, check out [this article on the AppVeyor site](https://www.appveyor.com/docs/how-to/git-push/).
+
+The next interesting section of the AppVeyor YAML file is as shown:
+
+```yaml
+install:
+  - cmd: cinst hugo
+
+build_script:
+  - cmd: hugo
+
+```
+
+The 'cinst hugo' command tells AppVeyor to install Hugo using Chocolatey whilst the next line builds the site.
 
 ## Step 4. Setting up a custom domain with GitHub Pages (Optional)
