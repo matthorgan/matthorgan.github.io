@@ -200,4 +200,29 @@ build_script:
 
 The 'cinst hugo' command tells AppVeyor to install Hugo using Chocolatey whilst the next line builds the site.
 
-## Step 4. Setting up a custom domain with GitHub Pages (Optional)
+Finally, the PowerShell section of the file:
+
+```yaml 
+on_success:
+ - ps: Invoke-Expression "git config --global credential.helper store" 2>&1 
+ - ps: Add-Content "$env:userprofile\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+ - ps: $revision = Invoke-Expression "git rev-parse HEAD" 2>&1 
+ - ps: New-Item -Path $env:target_dir -ItemType Directory
+ - ps: cd .\$env:target_dir
+ - ps: Invoke-Expression "git clone --branch $env:target_branch $env:repo (Get-Location).Path" 2>&1 
+ - ps: Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(".git","appveyor.yml")
+ - ps: Invoke-Expression "git config --global user.name $env:git_name" 2>&1
+ - ps: Invoke-Expression "git config --global user.email $env:git_email" 2>&1
+ - ps: Invoke-Expression "git add --all" 2>&1
+ - ps: Invoke-Expression "git commit --allow-empty -m 'Built from commit $revision'" 2>&1
+- ps: Invoke-Expression "git push origin $env:target_branch" 2>&1 
+```
+
+On the first two PowerShell lines, we set up our Git credentials to ensure we aren't prompted for a password utilising our access_token variable we created earlier. We then grab the Git revision number and store it in a variable before creating a new directory and changing into it. Next up, we clone the master branch from our Github repo into the folder we've just changed into before recursively copying the 'public' built site into the directory (excluding .git and appveyor.yml files).
+
+We now have all of the latest built files copied into the freshly cloned master repo folder. The last thing for us to do is to add our username and email to our Git config, stage the files and commit with reference to the revision number and push it to our master branch. 
+
+*Note: You might be wondering why all of the Git commands are ran using the Invoke-Expression command and redirect standard error to standard output (2>&1). Without this, it seems that the Appveyor shell treats some of the output from Git as standard error which produces horrible red text and obviously stops the build. By utilising the redirect and Invoke-Expression, the build successfully runs without error.*
+
+<br>
+That's all for now folks... I might come back and add a small section on setting up a custom domain at a later date.
