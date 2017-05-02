@@ -2,7 +2,7 @@ baseurl = "https://matthorgan.github.io"
 title = "Matt Horgan"
 theme = "hugo-theme-nix"
 languageCode = "en-us"
-disqusShortname = "matthorgan.disqus.com"
+disqusShortname = "matthorgan"
 
 [menu]
   [[menu.header]]
