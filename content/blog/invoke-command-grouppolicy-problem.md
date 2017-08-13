@@ -33,7 +33,7 @@ Right, so that works perfectly. Hmm, maybe the sheer number of policies that nee
 
 ![](/gpupdate-works.PNG)
 
-OK, so this seems to imply that the issue is purely with the inital application of the policies. The next step is to RDP onto the VM and try the command locally to see what gets returned:
+OK, so this seems to imply that the issue is purely with the initial application of the policies. The next step is to RDP onto the VM and try the command locally to see what gets returned:
 
 ![](/gpupdate-requires-reboot.PNG)
 
