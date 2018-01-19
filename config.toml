@@ -3,6 +3,7 @@ title = "Matt Horgan"
 theme = "hugo-theme-nix"
 languageCode = "en-us"
 disqusShortname = "matthorgan"
+googleAnalytics = "UA-112770718-1"
 
 [menu]
   [[menu.header]]
