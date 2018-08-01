@@ -41,6 +41,11 @@ Upon cancelling the prompt pop-up box, things started becoming clear:
 
 I should have paid more attention to the initial message behind the pop-up box - the -Credential parameter and $creds variable
 were working exactly as expected BUT the `Register-SCDWSource` cmdlet actually required the `SourceCredential` parameter too.
-I tried to use the auto-complete functionality for the `SourceCredential` parameter but nothing was coming up (and nothing was mentioned about this parameter in the documentation) which filled me with 0% confidence. However, I ended up trying it and to my shock, the cmdlet worked a treat!
+I tried to use the auto-complete functionality for the `SourceCredential` parameter but nothing was coming up (and nothing was mentioned about this parameter in the documentation) which filled me with 0% confidence. However, I ended up trying it and to my shock, the cmdlet worked a treat:
+
+```powershell
+$creds = New-Object -TypeName 'PSCredential' -ArgumentList ('lab\Administrator', (ConvertTo-SecureString -String 'MyLabPassword' -AsPlainText -Force))
+Register-SCDWSource -ComputerName 'scsmdw1' -SourceComputerName 'scsmms1' -DataSourceTypeName 'ServiceManager' -Credential $creds -SourceCredential $creds
+```
 
 A great lesson here is that we're all human and even Microsoft are going to make mistakes with their documentation and cmdlets. Hopefully the feedback will ensure that they update the documentation and if not then, hopefully this post helps!
