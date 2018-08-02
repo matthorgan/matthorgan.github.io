@@ -1,5 +1,5 @@
 +++
-title = "Register-SCDWSource Cmdlet/Documentation bug'"
+title = "Register-SCDWSource Cmdlet hidden parameter"
 description = ""
 tags = [
     "powershell",
