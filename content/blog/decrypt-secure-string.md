@@ -1,6 +1,6 @@
 +++
 title = "Decrypting PowerShell Secure Strings"
-description = ""
+description = "Quick tip for Secure String Decryption"
 tags = [
     "powershell",
     "automation"
