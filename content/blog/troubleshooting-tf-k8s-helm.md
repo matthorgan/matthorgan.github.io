@@ -8,7 +8,7 @@ tags = [
     "devops",
     "automation"
 ]
-date = "2019-08-15"
+date = "2019-08-29"
 categories = [
     "Development",
     "Automation",
