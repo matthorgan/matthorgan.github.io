@@ -14,7 +14,6 @@ categories = [
     "PowerShell",
     "System Center Service Manager"
 ]
-menu = "main"
 +++
 
 Myself and a colleague were recently given the task of end-to-end automation of Sytem Center Service Manager using
@@ -33,11 +32,11 @@ Register-SCDWSource -ComputerName 'scsmdw1' -SourceComputerName 'scsmms1' -DataS
 When you run this command, a credential request pop-up box appears which would imply that the $creds variable hasn't worked hence the prompt. Looking back
 at the example online, there's nothing obvious missed and the $creds variable contains a credential object as you'd expect.
 
-![](/cred_popup1.PNG)
+![](/img/cred_popup1.PNG)
 
 Upon cancelling the prompt pop-up box, things started becoming clear:
 
-![](/cred_popup2.PNG)
+![](/img/cred_popup2.PNG)
 
 I should have paid more attention to the initial message behind the pop-up box - the -Credential parameter and $creds variable
 were working exactly as expected BUT the `Register-SCDWSource` cmdlet actually required the `SourceCredential` parameter too.

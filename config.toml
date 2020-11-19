@@ -1,23 +1,59 @@
-baseurl = "https://matthorgan.github.io"
-title = "Matt Horgan"
-theme = "hugo-theme-nix"
-languageCode = "en-us"
-disqusShortname = "matthorgan"
+baseurl = "https://matthorgan.xyz/"
+title = "Matt's Blog"
+theme = "pulp"
+canonifyurls = true
+hasCJKLanguage = true
+# pygmentsCodefences = true
+# pygmentsUseClasses = true
 googleAnalytics = "UA-112770718-1"
 
-[menu]
-  [[menu.header]]
-    name = "blog"
-    weight = 0
-    url = "/blog"
+[markup.goldmark.renderer]
+    unsafe = true # Allow user HTML tags
 
 [params]
-  GithubID = "matthorgan"
-  LinkedInID = "matthorganuk"
-  Name = "Matt Horgan"
-  HeaderUsername = "hugo"
-  HeaderHostname = "matthorgan.xyz"
-  Email = "matt@matthorgan.xyz"
-  About = "I'm Matt, a DevOps Engineer from Bristol. I have a passion for automating Infrastructure using PowerShell and DevOps tools. Please feel free to get in contact with me using one of the links above!"
-  ProfilePicture = "/blog-profile-picture.jpg"
+    author = "Matt Horgan"
+    avatar = "avatar.jpg"
+    # avatarDescription = "My avatar description"
+    favicon = "favicon.ico"
+    description = """
+        I'm Matt, a DevOps Engineer from Bristol. Currently enjoying building things in Azure utilising
+        a whole bunch of cool CI/CD and automation tools. Please feel free to check out some of the links below!
+    """
+    publicationYear = "2020"
+    # listPageDateFormat = "January, 2006" # See https://gohugo.io/functions/format/
+    # singlePageDateFormat = "January 2, 2006"
+    # custom_css = ["/css/custom.css"]
+    # custom_js = ["/js/custom.js"]
 
+# Make sure setting a following option for search bar to work
+[outputs]
+    section = ["JSON", "HTML"]
+    term = ["JSON", "HTML"]
+
+[[menu.main]]
+    identifier = "blog"
+    # name = "Blog" #If display text link, cancel comment out
+    pre = "<i class='fa fa-book-open fa-lg'></i>" #Choose your favorite font from Font Awesome
+    url = "/blog/"
+    weight = 10
+
+# [[menu.main]]
+#     identifier = "twitter"
+#     # name = "Twitter"
+#     pre = "<i class='fab fa-twitter fa-lg'></i>"
+#     url = "https://twitter.com/username"
+#     weight = 20
+
+[[menu.main]]
+    identifier = "github"
+    # name = "GitHub"
+    pre = "<i class='fab fa-github fa-lg'></i>"
+    url = "https://github.com/matthorgan/"
+    weight = 30
+
+[[menu.main]]
+    identifier = "email"
+    # name = "Email"
+    pre = "<i class='fa fa-envelope fa-lg'></i>"
+    url = "mailto:matthew.horgan@outlook.com"
+    weight = 40

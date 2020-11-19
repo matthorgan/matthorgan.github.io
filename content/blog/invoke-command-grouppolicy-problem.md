@@ -13,7 +13,6 @@ categories = [
     "Automation",
     "PowerShell"
 ]
-menu = "main"
 +++
 
 A task that I've been working on recently is the automation of VM builds and post configuration using PowerShell and the PowerCLI module (Unfortunately we don't have a configuration management tool to make our lives easier at the moment).
@@ -27,15 +26,15 @@ Invoke-Command -ComputerName $VmName -ScriptBlock {gpupdate /force}
 ```
 Upon running this command, I was faced with absolutely nothing being returned - the prompt was just hanging. Eh?! So, what happens if I just run a gpupdate without the force switch?  
 
-![](/gpupdate-works.PNG)
+![]gpupdate-works.PNG)
 
 Right, so that works perfectly. Hmm, maybe the sheer number of policies that need to apply is slowing things down? What happens if we try a VM that already has the right policies? 
 
-![](/gpupdate-works.PNG)
+![]gpupdate-works.PNG)
 
 OK, so this seems to imply that the issue is purely with the initial application of the policies. The next step is to RDP onto the VM and try the command locally to see what gets returned:
 
-![](/gpupdate-requires-reboot.PNG)
+![](/img/gpupdate-requires-reboot.PNG)
 
 Bingo! The Group Policy update was working fine but required a reboot. Of course Invoke-Command isn't going to return anything if the remote command it's running is sat waiting for user input.  
 

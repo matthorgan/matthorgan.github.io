@@ -11,7 +11,6 @@ categories = [
     "Automation",
     "PowerShell",
 ]
-menu = "main"
 +++
 
 Ever found yourself needing to decrypt a secure string knowing that there are a couple of static methods you need to use

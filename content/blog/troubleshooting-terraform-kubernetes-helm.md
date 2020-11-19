@@ -16,7 +16,6 @@ categories = [
     "Terraform",
     "Helm"
 ]
-menu = "main"
 +++
 
 I decided to rebuild my home lab Plex server using Kubernetes and a great Helm chart (https://github.com/munnerz/kube-plex) which
