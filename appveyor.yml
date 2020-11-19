@@ -8,7 +8,7 @@ environment:
   git_name: Matt Horgan
   git_email: matt@matthorgan.xyz
   target_dir: temp
-  target_branch: master
+  target_branch: main
   repo: https://github.com/matthorgan/matthorgan.github.io.git
   access_token:
     secure: LjLcFpcRyohzlGXJBCLyPDrh2XPiNNmu0IW7MOawQYY7LpmCdH4ns3+OYsTYbiiU
