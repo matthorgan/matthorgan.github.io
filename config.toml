@@ -1,4 +1,4 @@
-baseurl = "https://matthorgan.xyz/"
+baseurl = "https://matthorgan.github.io/"
 title = "Matt's Blog"
 theme = "pulp"
 canonifyurls = true
