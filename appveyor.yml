@@ -33,6 +33,6 @@ on_success:
       Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(".git","appveyor.yml")
       Invoke-Expression "git config --global user.name $env:git_name" 2>&1
       Invoke-Expression "git config --global user.email $env:git_email" 2>&1
-      Invoke-Expression "git add --all" 2>&1
-      Invoke-Expression "git commit --allow-empty -m 'Built from commit $revision'" 2>&1
-      Invoke-Expression "git push origin $env:target_branch" 2>&1
+      Invoke-Expression "git add --all" #2>&1
+      Invoke-Expression "git commit --allow-empty -m 'Built from commit $revision'" #2>&1
+      Invoke-Expression "git push origin $env:target_branch" #2>&1
