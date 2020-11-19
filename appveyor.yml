@@ -11,7 +11,7 @@ environment:
   target_branch: main
   repo: https://github.com/matthorgan/matthorgan.github.io.git
   access_token:
-    secure: LjLcFpcRyohzlGXJBCLyPDrh2XPiNNmu0IW7MOawQYY7LpmCdH4ns3+OYsTYbiiU
+    secure: vIYO0we1IRXxWFw1Wx6Bhz4z9okRCHe+SuCVKPkMrP7rKIzlfChq15mfOAZ5UoIu
 
 install:
   - cmd: cinst hugo
