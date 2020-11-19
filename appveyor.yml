@@ -15,7 +15,7 @@ environment:
 
 install:
   - cmd: cinst hugo
-  - ps: git submodule add https://github.com/koirand/pulp.git $env:target_dir/themes/pulp
+  - ps: git submodule add https://github.com/koirand/pulp.git themes/pulp
 
 build_script:
   - cmd: hugo
