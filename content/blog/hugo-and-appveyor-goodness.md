@@ -38,7 +38,7 @@ hugo new site mynewblog
 
 If you have a look in your newly created site folder, it'll look something like this: 
 
-![]hugo-file-structure.PNG)
+![](/img/hugo-file-structure.PNG)
 
 Now that we have the basic layout, we need to add a theme. I ended up browsing the [theme section](http://themes.gohugo.io/) on Hugo's website to find one I liked. Once you've found a theme that you like, clone it into the themes folder of your newly created site.
 
@@ -57,7 +57,7 @@ git clone https://github.com/example/example-theme
 
 Usually, a theme will have an 'exampleSite' directory which contains an example structure for the theme including an example config.toml configuration file: 
 
-![]theme-example-site.PNG)
+![](/img/theme-example-site.PNG)
 
 I copied these files over into the root of my new Hugo site and started tailoring to fit my needs. I won't go into any further detail on that part - just play around with it and follow your nose.
 <br><br>
@@ -112,7 +112,7 @@ Head over to [AppVeyor](https://www.appveyor.com/) and sign up with GitHub if yo
 
 At this point, we have two options on how we want to configure the project. You can edit the settings of your project and configure everything within the AppVeyor UI or you can create an appveyor.yml file with the relevant settings and place it in the root of your GitHub repo. Here's what you'll see in the AppVeyor UI: 
 <br><br>
-![]appveyor-example-settings.PNG)
+![](/img/appveyor-example-settings.PNG)
 
 You can see from the menu in the above screenshot that there are so many possibilities when it comes to the configuration of your project. A cool feature of the UI is that you can export to an appveyor.yml file which makes it really easy to understand what's going on. Another great way to understand all of the possible settings within an appveyor.yml file is to check out this reference guide [here](https://www.appveyor.com/docs/appveyor-yml/).  
 *Note: The UI and appveyor.yml are mutually exclusive so you'll have to pick one or the other.*

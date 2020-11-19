@@ -26,11 +26,11 @@ Invoke-Command -ComputerName $VmName -ScriptBlock {gpupdate /force}
 ```
 Upon running this command, I was faced with absolutely nothing being returned - the prompt was just hanging. Eh?! So, what happens if I just run a gpupdate without the force switch?  
 
-![]gpupdate-works.PNG)
+![](/img/gpupdate-works.PNG)
 
 Right, so that works perfectly. Hmm, maybe the sheer number of policies that need to apply is slowing things down? What happens if we try a VM that already has the right policies? 
 
-![]gpupdate-works.PNG)
+![](/img/gpupdate-works.PNG)
 
 OK, so this seems to imply that the issue is purely with the initial application of the policies. The next step is to RDP onto the VM and try the command locally to see what gets returned:
 
