@@ -20,7 +20,7 @@ It's been over three and a half years since I first created my blog with Hugo an
 
 One of the main wins for me with GitHub Actions is the integration with GitHub. Having your code and your CI pipeline in one familiar GUI makes for a really nice experience. There's also a great VSCode plugin I found called `cschleiden.vscode-github-actions` which provides a really nice view of all your pipeline builds (or workflows as they're called in GitHub) like this:
 
-`<Screenshot of the GitHub Actions VSCode builds here>`
+![](/img/ghactions-vscode-extension.PNG)
 
 Another great benefit of GitHub Actions is the marketplace that contains thousands of actions that can help automate your workflow.
 
