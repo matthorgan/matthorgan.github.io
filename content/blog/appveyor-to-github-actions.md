@@ -1,4 +1,20 @@
-## Moving from AppVeyor to GitHub Actions
++++
+title = "Moving from AppVeyor to GitHub Actions"
+description = "Moving from AppVeyor to GitHub Actions"
+tags = [
+    "appveyor",
+    "github",
+    "actions",
+    "devops",
+    "ci/cd"
+]
+date = "2020-11-26"
+categories = [
+    "Development",
+    "DevOps",
+    "CI/CD"
+]
++++
 
 It's been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I've been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn't used yet and it's been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?
 
@@ -60,11 +76,13 @@ jobs:
 
       # This publishes our static site in ./public to the default gh-pages branch
       # GITHUB_TOKEN is an automatic token to allow authentication for Actions
+      # We've also got a custom domain set up here
       - name: Deploy Site
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
+          cname: matthorgan.xyz
 
 ```
 
