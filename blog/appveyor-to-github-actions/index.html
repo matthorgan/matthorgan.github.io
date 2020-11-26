@@ -37,7 +37,7 @@
 <meta itemprop="description" content="Moving from AppVeyor to GitHub Actions">
 <meta itemprop="datePublished" content="2020-11-26T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-11-26T00:00:00+00:00" />
-<meta itemprop="wordCount" content="729">
+<meta itemprop="wordCount" content="721">
 
 
 
@@ -126,7 +126,7 @@ if (!doNotTrack) {
   <div id="contentBody">
     <p>It&rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&rsquo;t used yet and it&rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?</p>
 <p>One of the main wins for me with GitHub Actions is the integration with GitHub. Having your code and your CI pipeline in one familiar GUI makes for a really nice experience. There&rsquo;s also a great VSCode plugin I found called <code>cschleiden.vscode-github-actions</code> which provides a really nice view of all your pipeline builds (or workflows as they&rsquo;re called in GitHub) like this:</p>
-<p><code>&lt;Screenshot of the GitHub Actions VSCode builds here&gt;</code></p>
+<p><img src="https://matthorgan.xyz/img/ghactions-vscode-extension.PNG" alt=""></p>
 <p>Another great benefit of GitHub Actions is the marketplace that contains thousands of actions that can help automate your workflow.</p>
 <p>The first thing I was going to do before I got started with GitHub Actions was to move my old inline code from the AppVeyor build file and into its own script. Over the years, I&rsquo;ve realised that pipelines can get wildly out of hand if you don&rsquo;t abstract as much code away from the pipeline syntax as possible. This makes your pipelines way easier to read and understand and allows for them to be easily portable into other CI tools if required.</p>
 <p>After some initial testing with the Windows 2019 runner, I decided to swap over to Linux as the builds went from around 30s in AppVeyor to a whole 3m30 in GitHub Actions.</p>
