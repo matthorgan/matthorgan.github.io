@@ -37,7 +37,7 @@
 <meta itemprop="description" content="Moving from AppVeyor to GitHub Actions">
 <meta itemprop="datePublished" content="2020-11-26T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2020-11-26T00:00:00+00:00" />
-<meta itemprop="wordCount" content="721">
+<meta itemprop="wordCount" content="747">
 
 
 
@@ -135,10 +135,10 @@ if (!doNotTrack) {
 <p>This therefore meant that I didn&rsquo;t actually need to use any scripts or any custom code at all and my workflow YAML file is wonderfully simple. My code is almost exactly the same as one of the examples in the Hugo Actions repo - everything just worked - what a joy it is to say that after the &lsquo;fun&rsquo; I&rsquo;ve had debugging pipelines in certain CI tools in the past.</p>
 <p>Here&rsquo;s my complete workflow to change my blog to use GitHub Actions:</p>
 <ol>
-<li>Changed my old &lsquo;source&rsquo; and &lsquo;master&rsquo; branches to &lsquo;main&rsquo; for the code and &lsquo;gh-pages&rsquo; for the static content</li>
+<li>Changed my old <code>source</code> and <code>master</code> branches to <code>main</code> for the code and <code>gh-pages</code> for the static content</li>
 <li>Installed cschleiden.vscode-github-actions GitHub Actions extension in VSCode which gives you a language engine and workflow visualisation.</li>
 <li>Added .github/workflows folder to the root of the repo.</li>
-<li>Created a new file called &lsquo;build-site.yml&rsquo;.</li>
+<li>Created a new file called <code>build-site.yml</code>.</li>
 <li>Added the new code to build my Hugo site and publish it to a gh-pages branch.</li>
 <li>Pushed the code up to GitHub and watched the CI do its thing.</li>
 </ol>
@@ -181,7 +181,7 @@ if (!doNotTrack) {
           <span style="color:#f92672">publish_dir</span>: <span style="color:#ae81ff">./public</span>
           <span style="color:#f92672">cname</span>: <span style="color:#ae81ff">matthorgan.xyz</span>
 
-</code></pre></div><p>As you can see from the above, a super simple way to get your built and deployed on a commit. I&rsquo;m looking forward to getting into the weeds with GH Actions on some more complicated projects but initial impressions are very good!</p>
+</code></pre></div><p>As you can see from the above, this is a super simple way to get your site built and deployed on a commit. The build time for this is now ~30s which is comparable to AppVeyor but having no custom code makes it look much cleaner. I&rsquo;m looking forward to getting into the weeds with GH Actions on some more complicated projects but initial impressions are very good!</p>
 
   </div>
   <footer>
