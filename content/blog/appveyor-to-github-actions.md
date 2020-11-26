@@ -36,10 +36,10 @@ This therefore meant that I didn't actually need to use any scripts or any custo
 
 Here's my complete workflow to change my blog to use GitHub Actions:
 
-1. Changed my old 'source' and 'master' branches to 'main' for the code and 'gh-pages' for the static content
+1. Changed my old `source` and `master` branches to `main` for the code and `gh-pages` for the static content
 1. Installed cschleiden.vscode-github-actions GitHub Actions extension in VSCode which gives you a language engine and workflow visualisation.
 1. Added .github/workflows folder to the root of the repo.
-1. Created a new file called 'build-site.yml'.
+1. Created a new file called `build-site.yml`.
 1. Added the new code to build my Hugo site and publish it to a gh-pages branch.
 1. Pushed the code up to GitHub and watched the CI do its thing.
 
@@ -86,4 +86,4 @@ jobs:
 
 ```
 
-As you can see from the above, a super simple way to get your built and deployed on a commit. I'm looking forward to getting into the weeds with GH Actions on some more complicated projects but initial impressions are very good!
+As you can see from the above, this is a super simple way to get your site built and deployed on a commit. The build time for this is now ~30s which is comparable to AppVeyor but having no custom code makes it look much cleaner. I'm looking forward to getting into the weeds with GH Actions on some more complicated projects but initial impressions are very good!
