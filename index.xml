@@ -5,11 +5,20 @@
     <link>https://matthorgan.xyz/</link>
     <description>Recent content on Matt&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 29 Aug 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Moving from AppVeyor to GitHub Actions</title>
+      <link>https://matthorgan.xyz/blog/appveyor-to-github-actions/</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/appveyor-to-github-actions/</guid>
+      <description>It&amp;rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&amp;rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&amp;rsquo;t used yet and it&amp;rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?</description>
+    </item>
+    
     <item>
       <title>Troubleshooting Terraform Kubernetes and Helm deployment</title>
       <link>https://matthorgan.xyz/blog/troubleshooting-terraform-kubernetes-helm/</link>
-      <pubDate>Thu, 29 Aug 2019 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
       
       <guid>https://matthorgan.xyz/blog/troubleshooting-terraform-kubernetes-helm/</guid>
       <description>I decided to rebuild my home lab Plex server using Kubernetes and a great Helm chart (https://github.com/munnerz/kube-plex) which dispatches transcode jobs as pods on the Kubernetes cluster. I wanted to do this in a fully automated fashion so that I could destroy and rebuild the whole infrastructure with one command thus saving me precious pennies and preventing any snowflake environments forming.
@@ -72,15 +81,6 @@ Part of the post-build configuration is to run a bunch of commands on the newly 
       
       <guid>https://matthorgan.xyz/blog/hugo-and-appveyor-goodness/</guid>
       <description>Recently, I&amp;rsquo;ve been thinking about how I can use DevOps tools and processes to improve the way I do things and this has led me to completely revamp my blog. My existing Wordpress blog has now been replaced with a shiny new blog using Hugo - a static website engine, hosted on Github Pages and automated using the continuous integration tool AppVeyor. In this article, I&amp;rsquo;m going to go through a step-by-step guide on how I set everything up.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://matthorgan.xyz/drafts/appveyor-to-github-actions/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://matthorgan.xyz/drafts/appveyor-to-github-actions/</guid>
-      <description>Moving from AppVeyor to GitHub Actions It&amp;rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&amp;rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&amp;rsquo;t used yet and it&amp;rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?</description>
     </item>
     
   </channel>

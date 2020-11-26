@@ -3,78 +3,103 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://matthorgan.xyz/categories/automation/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <loc>https://matthorgan.xyz/tags/actions/</loc>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matthorgan.xyz/tags/automation/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <loc>https://matthorgan.xyz/tags/appveyor/</loc>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/blog/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/categories/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/categories/development/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matthorgan.xyz/categories/devops/</loc>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/tags/devops/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matthorgan.xyz/categories/helm/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matthorgan.xyz/tags/helm/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matthorgan.xyz/categories/kubernetes/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matthorgan.xyz/tags/kubernetes/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <loc>https://matthorgan.xyz/tags/github/</loc>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matthorgan.xyz/blog/appveyor-to-github-actions/</loc>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/tags/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2020-11-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matthorgan.xyz/categories/automation/</loc>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matthorgan.xyz/tags/automation/</loc>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matthorgan.xyz/categories/helm/</loc>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matthorgan.xyz/tags/helm/</loc>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matthorgan.xyz/categories/kubernetes/</loc>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matthorgan.xyz/tags/kubernetes/</loc>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/categories/terraform/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/tags/terraform/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://matthorgan.xyz/blog/troubleshooting-terraform-kubernetes-helm/</loc>
-    <lastmod>2019-08-29T00:00:00+00:00</lastmod>
+    <lastmod>2019-09-23T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -163,11 +188,6 @@
   </url>
   
   <url>
-    <loc>https://matthorgan.xyz/tags/appveyor/</loc>
-    <lastmod>2017-03-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://matthorgan.xyz/tags/continuous-integration/</loc>
     <lastmod>2017-03-16T00:00:00+00:00</lastmod>
   </url>
@@ -213,11 +233,11 @@
   </url>
   
   <url>
-    <loc>https://matthorgan.xyz/drafts/appveyor-to-github-actions/</loc>
+    <loc>https://matthorgan.xyz/categories/ci/cd/</loc>
   </url>
   
   <url>
-    <loc>https://matthorgan.xyz/drafts/</loc>
+    <loc>https://matthorgan.xyz/tags/ci/cd/</loc>
   </url>
   
   <url>

@@ -3,7 +3,7 @@
   <head>
   <title>
       
-           - Matt&#39;s Blog
+          Moving from AppVeyor to GitHub Actions - Matt&#39;s Blog
       
   </title>
   <meta charset="utf-8">
@@ -27,23 +27,25 @@
   
   
 
-  <meta property="og:title" content="" />
-<meta property="og:description" content="Moving from AppVeyor to GitHub Actions It&rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&rsquo;t used yet and it&rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?" />
+  <meta property="og:title" content="Moving from AppVeyor to GitHub Actions" />
+<meta property="og:description" content="Moving from AppVeyor to GitHub Actions" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://matthorgan.xyz/drafts/appveyor-to-github-actions/" />
+<meta property="og:url" content="https://matthorgan.xyz/blog/appveyor-to-github-actions/" />
+<meta property="article:published_time" content="2020-11-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-26T00:00:00+00:00" />
+<meta itemprop="name" content="Moving from AppVeyor to GitHub Actions">
+<meta itemprop="description" content="Moving from AppVeyor to GitHub Actions">
+<meta itemprop="datePublished" content="2020-11-26T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-11-26T00:00:00+00:00" />
+<meta itemprop="wordCount" content="729">
 
-<meta itemprop="name" content="">
-<meta itemprop="description" content="Moving from AppVeyor to GitHub Actions It&rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&rsquo;t used yet and it&rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?">
-
-<meta itemprop="wordCount" content="723">
 
 
-
-<meta itemprop="keywords" content="" />
+<meta itemprop="keywords" content="appveyor,github,actions,devops,ci/cd," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:image" content="https://matthorgan.xyz/img/avatar.jpg"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Moving from AppVeyor to GitHub Actions It&rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&rsquo;t used yet and it&rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?"/>
+<meta name="twitter:title" content="Moving from AppVeyor to GitHub Actions"/>
+<meta name="twitter:description" content="Moving from AppVeyor to GitHub Actions"/>
 
   <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -71,7 +73,7 @@ if (!doNotTrack) {
 
   <body>
     
-  <h1></h1>
+  <h1>Moving from AppVeyor to GitHub Actions</h1>
   <header>
   
   <div class="avatar">
@@ -85,10 +87,44 @@ if (!doNotTrack) {
   
   
   
+  <p class="date">November 26, 2020</p>
+  
+  
+  
+  <div id="tags">
+    <ul>
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/appveyor/">appveyor</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/github/">github</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/actions/">actions</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/devops/">devops</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/ci/cd/">ci/cd</a></li>
+        
+      
+    </ul>
+  </div>
+  
   
   <div id="contentBody">
-    <h2 id="moving-from-appveyor-to-github-actions">Moving from AppVeyor to GitHub Actions</h2>
-<p>It&rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&rsquo;t used yet and it&rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?</p>
+    <p>It&rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&rsquo;t used yet and it&rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?</p>
 <p>One of the main wins for me with GitHub Actions is the integration with GitHub. Having your code and your CI pipeline in one familiar GUI makes for a really nice experience. There&rsquo;s also a great VSCode plugin I found called <code>cschleiden.vscode-github-actions</code> which provides a really nice view of all your pipeline builds (or workflows as they&rsquo;re called in GitHub) like this:</p>
 <p><code>&lt;Screenshot of the GitHub Actions VSCode builds here&gt;</code></p>
 <p>Another great benefit of GitHub Actions is the marketplace that contains thousands of actions that can help automate your workflow.</p>
@@ -137,11 +173,13 @@ if (!doNotTrack) {
 
       <span style="color:#75715e"># This publishes our static site in ./public to the default gh-pages branch</span>
       <span style="color:#75715e"># GITHUB_TOKEN is an automatic token to allow authentication for Actions</span>
+      <span style="color:#75715e"># We&#39;ve also got a custom domain set up here</span>
       - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy Site</span>
         <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-gh-pages@v3</span>
         <span style="color:#f92672">with</span>:
           <span style="color:#f92672">github_token</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
           <span style="color:#f92672">publish_dir</span>: <span style="color:#ae81ff">./public</span>
+          <span style="color:#f92672">cname</span>: <span style="color:#ae81ff">matthorgan.xyz</span>
 
 </code></pre></div><p>As you can see from the above, a super simple way to get your built and deployed on a commit. I&rsquo;m looking forward to getting into the weeds with GH Actions on some more complicated projects but initial impressions are very good!</p>
 
