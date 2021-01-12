@@ -5,7 +5,18 @@
     <link>https://matthorgan.xyz/</link>
     <description>Recent content on Matt&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Error using chart-testing in GitLab Pipeline</title>
+      <link>https://matthorgan.xyz/blog/chart-testing-gitlabci-error/</link>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/chart-testing-gitlabci-error/</guid>
+      <description>We&amp;rsquo;ve recently been moving over from Jenkins to GitLab and as part of this, I was creating a validation pipeline for our Helm charts using chart-testing. When I tried to use the tool for some basic linting using ct lint, I kept getting the error:
+Error: Error linting charts: Error identifying charts to process: Error running process: exit status 128.
+However, when I ran ct lint --all, everything seemed to work OK and the charts were analysed as expected.</description>
+    </item>
+    
     <item>
       <title>Moving from AppVeyor to GitHub Actions</title>
       <link>https://matthorgan.xyz/blog/appveyor-to-github-actions/</link>

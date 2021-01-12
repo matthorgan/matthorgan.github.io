@@ -5,11 +5,20 @@
     <link>https://matthorgan.xyz/categories/</link>
     <description>Recent content in Categories on Matt&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Jan 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automation</title>
+      <link>https://matthorgan.xyz/categories/automation/index.json</link>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/categories/automation/index.json</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Development</title>
       <link>https://matthorgan.xyz/categories/development/index.json</link>
-      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://matthorgan.xyz/categories/development/index.json</guid>
       <description></description>
@@ -18,18 +27,9 @@
     <item>
       <title>DevOps</title>
       <link>https://matthorgan.xyz/categories/devops/index.json</link>
-      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
       
       <guid>https://matthorgan.xyz/categories/devops/index.json</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Automation</title>
-      <link>https://matthorgan.xyz/categories/automation/index.json</link>
-      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://matthorgan.xyz/categories/automation/index.json</guid>
       <description></description>
     </item>
     
