@@ -64,3 +64,13 @@ if ($errOutput) {
 ```
 
 In this final example, we're executing the azcli command using the ampersand operator and capturing the variable output in the `$appReg` variable like before. However, this time we're using a subexpression and redirecting the error stream of that subexpression to the success stream and capturing it in a variable called `$errOutput`. Now that we've got the error in a variable, we can display it and handle it however we like.
+
+One thing to note is make sure you're aware of what output the azcli command you're using gives you. Some azcli commands send useful non-error commands to the error stream and therefore redirecting it like we've done above will trigger an error. If you wanted to, you could technically use a hybrid of the above two methods to ensure this doesn't trip you up:
+
+```powershell
+$errOutput = $($appReg = & {az ad sp show --id 'NotARealObjectId'}) 2>&1
+if ($LASTEXITCODE -ne 0) {
+    Write-Error "Uh oh, we've got an error here..." -ErrorAction 'Continue'
+    throw $errOutput
+}
+```
