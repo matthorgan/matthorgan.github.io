@@ -55,5 +55,5 @@ googleAnalytics = "UA-112770718-1"
     identifier = "email"
     # name = "Email"
     pre = "<i class='fa fa-envelope fa-lg'></i>"
-    url = "mailto:matthew.horgan@outlook.com"
+    url = "mailto:matt@matthorgan.xyz"
     weight = 40
