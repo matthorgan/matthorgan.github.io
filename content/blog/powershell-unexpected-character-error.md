@@ -1,5 +1,5 @@
 +++
-title = "Azure CLI Error Handling in PowerShell"
+title = "PowerShell Unexpected Character Error"
 description = ""
 tags = [
     "powershell",
