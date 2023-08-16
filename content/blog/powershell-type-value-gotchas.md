@@ -1,19 +1,21 @@
 +++
-title = "Handling null values in PowerShell and the sneaky 'gotcha' that might catch you out"
-description = ""
+title = "Handling null values in PowerShell and the sneaky gotcha that might catch you out"
+description = "Handling null values in PowerShell and the sneaky gotcha that might catch you out"
 tags = [
-    "powershell",
-    "automation",
-    "ci/cd",
-    "devops"
+    "appveyor",
+    "github",
+    "actions",
+    "devops",
+    "ci/cd"
 ]
-date = "2023-09-16"
+date = "2022-11-26"
 categories = [
     "Development",
-    "Automation",
-    "DevOps"
+    "DevOps",
+    "CI/CD"
 ]
 +++
+
 
 In this blog post, I'll be covering a fun little 'gotcha' that has caught me out over the years, and the explanation
 for why it happens.
