@@ -7,7 +7,7 @@ tags = [
     "ci/cd",
     "devops"
 ]
-date = "2022-09-15"
+date = "2022-08-16"
 categories = [
     "Development",
     "Automation",
