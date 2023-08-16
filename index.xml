@@ -28,7 +28,7 @@ PSNativeCommandErrorActionPreference is a preference variable that when set to t
     <item>
       <title>Handling null values in PowerShell and the sneaky gotcha that might catch you out</title>
       <link>https://matthorgan.xyz/blog/powershell-type-value-gotchas/</link>
-      <pubDate>Thu, 15 Sep 2022 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 16 Aug 2022 00:00:00 +0000</pubDate>
       
       <guid>https://matthorgan.xyz/blog/powershell-type-value-gotchas/</guid>
       <description>In this blog post, I&amp;rsquo;ll be covering a fun little null value related &amp;lsquo;gotcha&amp;rsquo; that has caught me out over the years, and the explanation for why it happens. Let&amp;rsquo;s jump right in with how we handle null values and the issues I&amp;rsquo;ve come across in the past.
