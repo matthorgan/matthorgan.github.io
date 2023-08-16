@@ -5,7 +5,17 @@
     <link>https://matthorgan.xyz/</link>
     <description>Recent content on Matt&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 28 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Handling null values in PowerShell and the sneaky gotcha that might catch you out</title>
+      <link>https://matthorgan.xyz/blog/powershell-type-value-gotchas/</link>
+      <pubDate>Wed, 16 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/powershell-type-value-gotchas/</guid>
+      <description>In this blog post, I&amp;rsquo;ll be covering a fun little null value related &amp;lsquo;gotcha&amp;rsquo; that has caught me out over the years, and the explanation for why it happens. Let&amp;rsquo;s jump right in with how we handle null values and the issues I&amp;rsquo;ve come across in the past.
+Handling Null Values In PowerShell, there are several ways to check for a null value in a variable. One of the standard ways looks like this:</description>
+    </item>
+    
     <item>
       <title>Handling Native Applications in PowerShell 7.3&#43; with $PSNativeCommandErrorActionPreference</title>
       <link>https://matthorgan.xyz/blog/powershell-handling-native-applications/</link>
@@ -23,16 +33,6 @@ PSNativeCommandErrorActionPreference is a preference variable that when set to t
       
       <guid>https://matthorgan.xyz/blog/powershell-unexpected-character-error/</guid>
       <description>Over the years, I&amp;rsquo;ve had a few different Unexpected character encountered errors in PowerShell and for the longest time, they were always a real pain to troubleshoot and looked like a bug. Once you know the issue though, it&amp;rsquo;s a fairly simple one to solve. The latest one I&amp;rsquo;ve come across is running the following command from our CI/CD Linux build container to a Windows 2012 machine hosted in Azure:</description>
-    </item>
-    
-    <item>
-      <title>Handling null values in PowerShell and the sneaky gotcha that might catch you out</title>
-      <link>https://matthorgan.xyz/blog/powershell-type-value-gotchas/</link>
-      <pubDate>Tue, 16 Aug 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://matthorgan.xyz/blog/powershell-type-value-gotchas/</guid>
-      <description>In this blog post, I&amp;rsquo;ll be covering a fun little null value related &amp;lsquo;gotcha&amp;rsquo; that has caught me out over the years, and the explanation for why it happens. Let&amp;rsquo;s jump right in with how we handle null values and the issues I&amp;rsquo;ve come across in the past.
-Handling Null Values In PowerShell, there are several ways to check for a null value in a variable. One of the standard ways looks like this:</description>
     </item>
     
     <item>
