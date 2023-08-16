@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Matt&#39;s Blog</title>
+    <link>https://matthorgan.xyz/</link>
+    <description>Recent content on Matt&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 28 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Handling Native Applications in PowerShell 7.3&#43; with $PSNativeCommandErrorActionPreference</title>
+      <link>https://matthorgan.xyz/blog/powershell-handling-native-applications/</link>
+      <pubDate>Tue, 28 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/powershell-handling-native-applications/</guid>
+      <description>I&amp;rsquo;ve previously written a blog post about how to handle Azure CLI errors in PowerShell. The general pattern involves redirecting any error streams to the correct place, and checking for a known exit code. There&amp;rsquo;s an exciting new feature in PowerShell from version 7.3 onwards that makes capturing errors for native applications like the Azure CLI much simpler. Enter: $PSNativeCommandErrorActionPreference
+PSNativeCommandErrorActionPreference is a preference variable that when set to true, allows for native commands to be handled in a more &amp;lsquo;PowerShell&amp;rsquo; way.</description>
+    </item>
+    
+    <item>
+      <title>PowerShell Unexpected Character Error</title>
+      <link>https://matthorgan.xyz/blog/powershell-unexpected-character-error/</link>
+      <pubDate>Thu, 05 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/powershell-unexpected-character-error/</guid>
+      <description>Over the years, I&amp;rsquo;ve had a few different Unexpected character encountered errors in PowerShell and for the longest time, they were always a real pain to troubleshoot and looked like a bug. Once you know the issue though, it&amp;rsquo;s a fairly simple one to solve. The latest one I&amp;rsquo;ve come across is running the following command from our CI/CD Linux build container to a Windows 2012 machine hosted in Azure:</description>
+    </item>
+    
+    <item>
+      <title>Azure CLI Error Handling in PowerShell</title>
+      <link>https://matthorgan.xyz/blog/azcli-error-handling-in-powershell/</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/azcli-error-handling-in-powershell/</guid>
+      <description>The Azure CLI (azcli) is an extremely useful tool in interacting with the Azure platform. I&amp;rsquo;ve been favouring it over the Azure PowerShell modules recently due to many of the commands being idempotent (E.g. not having to check if something already exists before trying to create can be a nice time saver). One of the downsides to using the azcli in PowerShell scripts however, is that you can&amp;rsquo;t handle errors like you would with a typical PowerShell cmdlet.</description>
+    </item>
+    
+    <item>
+      <title>Error using chart-testing in GitLab Pipeline</title>
+      <link>https://matthorgan.xyz/blog/chart-testing-gitlabci-error/</link>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/chart-testing-gitlabci-error/</guid>
+      <description>We&amp;rsquo;ve recently been moving over from Jenkins to GitLab and as part of this, I was creating a validation pipeline for our Helm charts using chart-testing. When I tried to use the tool for some basic linting using ct lint, I kept getting the error:
+Error: Error linting charts: Error identifying charts to process: Error running process: exit status 128.
+However, when I ran ct lint --all, everything seemed to work OK and the charts were analysed as expected.</description>
+    </item>
+    
+    <item>
+      <title>Moving from AppVeyor to GitHub Actions</title>
+      <link>https://matthorgan.xyz/blog/appveyor-to-github-actions/</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/appveyor-to-github-actions/</guid>
+      <description>It&amp;rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&amp;rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&amp;rsquo;t used yet and it&amp;rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?</description>
+    </item>
+    
+    <item>
+      <title>Troubleshooting Terraform Kubernetes and Helm deployment</title>
+      <link>https://matthorgan.xyz/blog/troubleshooting-terraform-kubernetes-helm/</link>
+      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/troubleshooting-terraform-kubernetes-helm/</guid>
+      <description>I decided to rebuild my home lab Plex server using Kubernetes and a great Helm chart (https://github.com/munnerz/kube-plex) which dispatches transcode jobs as pods on the Kubernetes cluster. I wanted to do this in a fully automated fashion so that I could destroy and rebuild the whole infrastructure with one command thus saving me precious pennies and preventing any snowflake environments forming.
+I used Terraform to build the Azure Kubernetes Service (AKS) and all was going well until I tried integrating the Terraform Helm resources into my Terraform code.</description>
+    </item>
+    
+    <item>
+      <title>Decrypting PowerShell Secure Strings</title>
+      <link>https://matthorgan.xyz/blog/decrypt-secure-string/</link>
+      <pubDate>Thu, 15 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/decrypt-secure-string/</guid>
+      <description>Ever found yourself needing to decrypt a secure string knowing that there are a couple of static methods you need to use but can never remember what they are? After a quick Google, you&amp;rsquo;ll probably stumble upon something similar to this:
+$BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecurePassword) $UnsecurePassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR) Whilst this works fine, it&amp;rsquo;s way easier to remember (Tab complete is your friend) that a PSCredential object has the ability to show the password by using GetNetworkCredential().</description>
+    </item>
+    
+    <item>
+      <title>Register-SCDWSource Cmdlet hidden parameter</title>
+      <link>https://matthorgan.xyz/blog/register-datawarehouse/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/register-datawarehouse/</guid>
+      <description>Myself and a colleague were recently given the task of end-to-end automation of Sytem Center Service Manager using PowerShell DSC. This needed to include prerequisites, installation of the product, and any post configuration.
+If any of you are familiar with Service Manager, you&amp;rsquo;ll know that one of the steps is to register Service Manager to the data warehouse. Luckily, there&amp;rsquo;s a PowerShell cmdlet for that which should make the task a breeze: Register-SCDWSource</description>
+    </item>
+    
+    <item>
+      <title>Error when running &#39;vagrant up&#39;</title>
+      <link>https://matthorgan.xyz/blog/vagrant-up-not-working/</link>
+      <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/vagrant-up-not-working/</guid>
+      <description>I&amp;rsquo;ve been using vagrant to build up labs for my work recently and it&amp;rsquo;s an awesome product. One small downside is the sheer amount of space that the new VMs were taking up on my laptop SSD (I&amp;rsquo;d been testing linked clones and hadn&amp;rsquo;t cleaned up after myself). As my whole lab build was in code, I felt rather pleased with myself that I could just bin the whole environment including any VMs and then just spin it up again afterwards.</description>
+    </item>
+    
+    <item>
+      <title>PowerShell DSC ResourceKey Empty</title>
+      <link>https://matthorgan.xyz/blog/powershell-dsc-resourcekey-empty/</link>
+      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/powershell-dsc-resourcekey-empty/</guid>
+      <description>I&amp;rsquo;m absolutely loving PowerShell DSC at the moment and we&amp;rsquo;re using it heavily for the automation and configuration of various products. One of the most recent tasks was to create a fully parameterised SQL build function for reusability across the company. All was going swimmingly until I ran into the following error when attempting to run my freshly parameterised DSC function:
+After a little bit of digging, I stumbled across a great blog post by Jacob Benson which had some nice troubleshooting steps (Link here).</description>
+    </item>
+    
+    <item>
+      <title>Invoke-Command Group Policy Gotcha (Whoops!)</title>
+      <link>https://matthorgan.xyz/blog/invoke-command-grouppolicy-problem/</link>
+      <pubDate>Sun, 09 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/invoke-command-grouppolicy-problem/</guid>
+      <description>A task that I&amp;rsquo;ve been working on recently is the automation of VM builds and post configuration using PowerShell and the PowerCLI module (Unfortunately we don&amp;rsquo;t have a configuration management tool to make our lives easier at the moment).
+Part of the post-build configuration is to run a bunch of commands on the newly built VMs. I could have used PowerCLI&amp;rsquo;s Invoke-VMScript command to achieve this however as all of the VMs were joining the domain and tools on some of the VM templates were out of date, I used PowerShell&amp;rsquo;s Invoke-Command.</description>
+    </item>
+    
+    <item>
+      <title>Hugo &amp; AppVeyor (Continuous Integration Blog Goodness)</title>
+      <link>https://matthorgan.xyz/blog/hugo-and-appveyor-goodness/</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/hugo-and-appveyor-goodness/</guid>
+      <description>Recently, I&amp;rsquo;ve been thinking about how I can use DevOps tools and processes to improve the way I do things and this has led me to completely revamp my blog. My existing Wordpress blog has now been replaced with a shiny new blog using Hugo - a static website engine, hosted on Github Pages and automated using the continuous integration tool AppVeyor. In this article, I&amp;rsquo;m going to go through a step-by-step guide on how I set everything up.</description>
+    </item>
+    
+  </channel>
+</rss>

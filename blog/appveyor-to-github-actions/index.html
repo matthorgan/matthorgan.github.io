@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>
+      
+          Moving from AppVeyor to GitHub Actions - Matt&#39;s Blog
+      
+  </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Matt Horgan" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://matthorgan.xyz/img/favicon.ico">
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://matthorgan.xyz/style.min.39acacc5d2051426f655a6b7fbf4786fbd0fd8fffd09322c9b497ef0f7439b3f.css" integrity="sha256-OaysxdIFFCb2Vaa3&#43;/R4b70P2P/9CTIsm0l&#43;8PdDmz8=">
+  
+  
+  
+  <link rel="stylesheet" href="https://matthorgan.xyz/style-dark.min.0a647fb6c07e04b77b54fa0515d0a683d39ecdb251dba960fe1f966f7ff36fc2.css" media="(prefers-color-scheme: dark)" integrity="sha256-CmR/tsB&#43;BLd7VPoFFdCmg9OezbJR26lg/h&#43;Wb3/zb8I=">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  
+  
+
+  <meta property="og:title" content="Moving from AppVeyor to GitHub Actions" />
+<meta property="og:description" content="Moving from AppVeyor to GitHub Actions" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matthorgan.xyz/blog/appveyor-to-github-actions/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2020-11-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-11-26T00:00:00+00:00" />
+<meta itemprop="name" content="Moving from AppVeyor to GitHub Actions">
+<meta itemprop="description" content="Moving from AppVeyor to GitHub Actions"><meta itemprop="datePublished" content="2020-11-26T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-11-26T00:00:00+00:00" />
+<meta itemprop="wordCount" content="747">
+<meta itemprop="keywords" content="appveyor,github,actions,devops,ci/cd," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:image" content="https://matthorgan.xyz/img/avatar.jpg"/>
+<meta name="twitter:title" content="Moving from AppVeyor to GitHub Actions"/>
+<meta name="twitter:description" content="Moving from AppVeyor to GitHub Actions"/>
+
+  <!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <![endif]-->
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112770718-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+</head>
+
+  <body>
+    
+  <h1>Moving from AppVeyor to GitHub Actions</h1>
+  <header>
+  
+  <div class="avatar">
+    <img class="avatarMask" src="https://matthorgan.xyz/img/avatar.jpg" alt="">
+    <a href="https://matthorgan.xyz"><img class="avatar-border" src="https://matthorgan.xyz/img/avatar-border.svg" alt=""></a>
+  </div>
+  
+  <h2><a class="author" href="https://matthorgan.xyz">Matt Horgan</a></h2>
+</header>
+
+  
+  
+  
+  <p class="date">November 26, 2020</p>
+  
+  
+  
+  <div id="tags">
+    <ul>
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/appveyor/">appveyor</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/github/">github</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/actions/">actions</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/devops/">devops</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/ci/cd/">ci/cd</a></li>
+        
+      
+    </ul>
+  </div>
+  
+  
+  <div id="contentBody">
+    <p>It&rsquo;s been over three and a half years since I first created my blog with Hugo and AppVeyor. Since then, I&rsquo;ve been fortunate (or unfortunate depending on the tool!) to use lots of other CI/CD tools such as GitLab CI, Jenkins, Bamboo, Azure DevOps. GitHub Actions is one tool that I hadn&rsquo;t used yet and it&rsquo;s been on my radar for a while so why not take the opportunity to update the blog and the CI pipeline?</p>
+<p>One of the main wins for me with GitHub Actions is the integration with GitHub. Having your code and your CI pipeline in one familiar GUI makes for a really nice experience. There&rsquo;s also a great VSCode plugin I found called <code>cschleiden.vscode-github-actions</code> which provides a really nice view of all your pipeline builds (or workflows as they&rsquo;re called in GitHub) like this:</p>
+<img src="https://matthorgan.xyz/img/ghactions-vscode-extension.PNG" alt="vscode-extension" width="230"/>
+<p>Another great benefit of GitHub Actions is the marketplace that contains thousands of actions that can help automate your workflow.</p>
+<p>The first thing I was going to do before I got started with GitHub Actions was to move my old inline code from the AppVeyor build file and into its own script. Over the years, I&rsquo;ve realised that pipelines can get wildly out of hand if you don&rsquo;t abstract as much code away from the pipeline syntax as possible. This makes your pipelines way easier to read and understand and allows for them to be easily portable into other CI tools if required.</p>
+<p>After some initial testing with the Windows 2019 runner, I decided to swap over to Linux as the builds went from around 30s in AppVeyor to a whole 3m30 in GitHub Actions.</p>
+<p>Before I started to refactor my code into a little bash script, I thought I&rsquo;d have a quick look at what community Actions were available to potentially simplify my workflow and lo and behold, it couldn&rsquo;t have been simpler.</p>
+<p>There&rsquo;s a Hugo Action available from <a href="https://github.com/peaceiris/actions-hugo">here</a> which installs Hugo at the version you specify. On top of that, there&rsquo;s a GitHub Pages Action which allows you to deploy your static content to your <code>gh-pages</code> branch or whichever branch your GitHub Pages is setup to point to.</p>
+<p>This therefore meant that I didn&rsquo;t actually need to use any scripts or any custom code at all and my workflow YAML file is wonderfully simple. My code is almost exactly the same as one of the examples in the Hugo Actions repo - everything just worked - what a joy it is to say that after the &lsquo;fun&rsquo; I&rsquo;ve had debugging pipelines in certain CI tools in the past.</p>
+<p>Here&rsquo;s my complete workflow to change my blog to use GitHub Actions:</p>
+<ol>
+<li>Changed my old <code>source</code> and <code>master</code> branches to <code>main</code> for the code and <code>gh-pages</code> for the static content</li>
+<li>Installed cschleiden.vscode-github-actions GitHub Actions extension in VSCode which gives you a language engine and workflow visualisation.</li>
+<li>Added .github/workflows folder to the root of the repo.</li>
+<li>Created a new file called <code>build-site.yml</code>.</li>
+<li>Added the new code to build my Hugo site and publish it to a gh-pages branch.</li>
+<li>Pushed the code up to GitHub and watched the CI do its thing.</li>
+</ol>
+<p>Here is the full workflow file with some annotations for each section:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">site-deployment</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Tell GH Actions to only run on a push to the &#39;main&#39; branch</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># &#39;deploy&#39; is the arbitrary name of our job</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">deploy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-18.04</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># This uses the Checkout action to grab our code including the theme submodule</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Git Checkout</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">submodules</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">fetch-depth</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Installs v0.75.1 of Hugo using the Hugo Action</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install Hugo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-hugo@v2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">hugo-version</span>: <span style="color:#e6db74">&#39;0.75.1&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Run &#39;hugo&#39; to generate the static content - defaults to the ./public folder</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build Site</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">hugo</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># This publishes our static site in ./public to the default gh-pages branch</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># GITHUB_TOKEN is an automatic token to allow authentication for Actions</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># We&#39;ve also got a custom domain set up here</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy Site</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">peaceiris/actions-gh-pages@v3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">github_token</span>: <span style="color:#ae81ff">${{ secrets.GITHUB_TOKEN }}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">publish_dir</span>: <span style="color:#ae81ff">./public</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">cname</span>: <span style="color:#ae81ff">matthorgan.xyz</span>
+</span></span></code></pre></div><p>As you can see from the above, this is a super simple way to get your site built and deployed on a commit. The build time for this is now ~30s which is comparable to AppVeyor but having no custom code makes it look much cleaner. I&rsquo;m looking forward to getting into the weeds with GH Actions on some more complicated projects but initial impressions are very good!</p>
+
+  </div>
+  <footer>
+  <p>
+  &copy; 2020 Matt Horgan.
+  Powered by <a href="https://gohugo.io/">Hugo</a>
+  using the <a href="https://github.com/koirand/pulp/">pulp</a> theme.
+  </p>
+</footer>
+
+
+  </body>
+</html>

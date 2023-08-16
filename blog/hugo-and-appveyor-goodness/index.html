@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>
+      
+          Hugo &amp; AppVeyor (Continuous Integration Blog Goodness) - Matt&#39;s Blog
+      
+  </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Matt Horgan" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://matthorgan.xyz/img/favicon.ico">
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://matthorgan.xyz/style.min.39acacc5d2051426f655a6b7fbf4786fbd0fd8fffd09322c9b497ef0f7439b3f.css" integrity="sha256-OaysxdIFFCb2Vaa3&#43;/R4b70P2P/9CTIsm0l&#43;8PdDmz8=">
+  
+  
+  
+  <link rel="stylesheet" href="https://matthorgan.xyz/style-dark.min.0a647fb6c07e04b77b54fa0515d0a683d39ecdb251dba960fe1f966f7ff36fc2.css" media="(prefers-color-scheme: dark)" integrity="sha256-CmR/tsB&#43;BLd7VPoFFdCmg9OezbJR26lg/h&#43;Wb3/zb8I=">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  
+  
+
+  <meta property="og:title" content="Hugo &amp; AppVeyor (Continuous Integration Blog Goodness)" />
+<meta property="og:description" content="Recently, I&rsquo;ve been thinking about how I can use DevOps tools and processes to improve the way I do things and this has led me to completely revamp my blog. My existing Wordpress blog has now been replaced with a shiny new blog using Hugo - a static website engine, hosted on Github Pages and automated using the continuous integration tool AppVeyor. In this article, I&rsquo;m going to go through a step-by-step guide on how I set everything up." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matthorgan.xyz/blog/hugo-and-appveyor-goodness/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2017-03-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2017-03-16T00:00:00+00:00" />
+<meta itemprop="name" content="Hugo &amp; AppVeyor (Continuous Integration Blog Goodness)">
+<meta itemprop="description" content="Recently, I&rsquo;ve been thinking about how I can use DevOps tools and processes to improve the way I do things and this has led me to completely revamp my blog. My existing Wordpress blog has now been replaced with a shiny new blog using Hugo - a static website engine, hosted on Github Pages and automated using the continuous integration tool AppVeyor. In this article, I&rsquo;m going to go through a step-by-step guide on how I set everything up."><meta itemprop="datePublished" content="2017-03-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2017-03-16T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1847">
+<meta itemprop="keywords" content="go,golang,hugo,development,powershell,winops,continuous integration,appveyor," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:image" content="https://matthorgan.xyz/img/avatar.jpg"/>
+<meta name="twitter:title" content="Hugo &amp; AppVeyor (Continuous Integration Blog Goodness)"/>
+<meta name="twitter:description" content="Recently, I&rsquo;ve been thinking about how I can use DevOps tools and processes to improve the way I do things and this has led me to completely revamp my blog. My existing Wordpress blog has now been replaced with a shiny new blog using Hugo - a static website engine, hosted on Github Pages and automated using the continuous integration tool AppVeyor. In this article, I&rsquo;m going to go through a step-by-step guide on how I set everything up."/>
+
+  <!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <![endif]-->
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112770718-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+</head>
+
+  <body>
+    
+  <h1>Hugo &amp; AppVeyor (Continuous Integration Blog Goodness)</h1>
+  <header>
+  
+  <div class="avatar">
+    <img class="avatarMask" src="https://matthorgan.xyz/img/avatar.jpg" alt="">
+    <a href="https://matthorgan.xyz"><img class="avatar-border" src="https://matthorgan.xyz/img/avatar-border.svg" alt=""></a>
+  </div>
+  
+  <h2><a class="author" href="https://matthorgan.xyz">Matt Horgan</a></h2>
+</header>
+
+  
+  
+  
+  <p class="date">March 16, 2017</p>
+  
+  
+  
+  <div id="tags">
+    <ul>
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/go/">go</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/golang/">golang</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/hugo/">hugo</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/development/">development</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/powershell/">powershell</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/winops/">winops</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/continuous-integration/">continuous integration</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/appveyor/">appveyor</a></li>
+        
+      
+    </ul>
+  </div>
+  
+  
+  <div id="contentBody">
+    <p>Recently, I&rsquo;ve been thinking about how I can use DevOps tools and processes to improve the way I do things and this has led me to completely revamp my blog. My existing Wordpress blog has now been replaced with a shiny new blog using <a href="https://gohugo.io/">Hugo</a> - a static website engine, hosted on <a href="https://pages.github.com/">Github Pages</a> and automated using the continuous integration tool <a href="https://www.appveyor.com/">AppVeyor</a>. In this article, I&rsquo;m going to go through a step-by-step guide on how I set everything up.</p>
+<h2 id="step-1-install-hugo--build-new-site">Step 1. Install Hugo &amp; Build New Site</h2>
+<p>First off, it&rsquo;s worth mentioning that this step-by-step guide assumes you&rsquo;re running a Windows environment and using the Windows package manager Chocolatey (If you don&rsquo;t know about Chocolatey then you NEED to get this in your life right now. Check it out <a href="https://chocolatey.org/">here</a>).</p>
+<p>I won&rsquo;t go into too much detail about Hugo because there&rsquo;s some great stuff online already but essentially, Hugo renders all of your static content into HTML, CSS and JavaScript. This makes pages on the site really quick to load and easy to manage as you don&rsquo;t rely on a traditional CMS to manage content.
+<br><br>
+Install Hugo by running:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>choco install hugo -y
+</span></span></code></pre></div><p>Next up, creating a new skeleton site structure is as simple as running:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>hugo new site mynewblog
+</span></span></code></pre></div><p>If you have a look in your newly created site folder, it&rsquo;ll look something like this:</p>
+<p><img src="https://matthorgan.xyz/img/hugo-file-structure.PNG" alt=""></p>
+<p>Now that we have the basic layout, we need to add a theme. I ended up browsing the <a href="http://themes.gohugo.io/">theme section</a> on Hugo&rsquo;s website to find one I liked. Once you&rsquo;ve found a theme that you like, clone it into the themes folder of your newly created site.</p>
+<p>On my local machine, I use posh-git which integrates Git nicely into PowerShell (Including tab completion). To install posh-git, simply run the following from PowerShell:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>choco install poshgit -y
+</span></span></code></pre></div><p><em>Note: You may need to reload your PowerShell session to use the Git commands from PowerShell.</em>
+<br><br>
+With Git installed, clone the theme you like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>cd themes
+</span></span><span style="display:flex;"><span>git clone https<span style="color:#960050;background-color:#1e0010">:</span>//github.com/example/example-theme
+</span></span></code></pre></div><p>Usually, a theme will have an &rsquo;exampleSite&rsquo; directory which contains an example structure for the theme including an example config.toml configuration file:</p>
+<p><img src="https://matthorgan.xyz/img/theme-example-site.PNG" alt=""></p>
+<p>I copied these files over into the root of my new Hugo site and started tailoring to fit my needs. I won&rsquo;t go into any further detail on that part - just play around with it and follow your nose.
+<br><br>
+So, you&rsquo;ve got a theme you&rsquo;re happy with and you&rsquo;ve tweaked the configuration to your liking? Hugo has a very convenient web server that listens on port 1313 so that you can view how your glorious website will look when built. To make use of this, run the command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>hugo server  
+</span></span></code></pre></div><p>The great thing about this is, every time you update any of your static files, the changes will instantly appear at http://localhost:1313
+<br><br>
+Right, now we&rsquo;ve got our new Hugo site configured the way we want it, let&rsquo;s set up our Github pages.</p>
+<h2 id="step-2-setting-up-github-pages-to-work-with-our-new-hugo-site">Step 2. Setting up Github Pages to work with our new Hugo site</h2>
+<p>If you haven&rsquo;t already got a Github account, head over to <a href="https://github.com">GitHub</a> and sign up for one. Once you&rsquo;ve got your account set up, create a new repository and call it yourusername.github.io e.g. mine is matthorgan.github.io.</p>
+<p>For this build, we&rsquo;re going to be using two branches - &lsquo;source&rsquo; which will house all of the static content and &lsquo;master&rsquo; which will house the Hugo built content. Doing it this way allows us to have both the static and generated content completely version controlled.
+<br><br>
+From PowerShell, browse to the root directory of your Hugo site and run the following commands to set up your local repository and push it to your Github repo:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>git init
+</span></span><span style="display:flex;"><span>git add --all
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;Initial Hugo static file commit&#34;</span>
+</span></span><span style="display:flex;"><span>git remote add origin https<span style="color:#960050;background-color:#1e0010">:</span>//github.com/yourusername/yourusername.github.io.git
+</span></span><span style="display:flex;"><span>git push -u origin source
+</span></span></code></pre></div><p><em>Note: Replace &lsquo;yourusername&rsquo; with your actual Github username and repo name</em>
+<br><br>
+We&rsquo;ve now got our static content pushed to a branch in our Github Pages repo called &lsquo;source&rsquo;. At this point, you can move on to the continuous integration with AppVeyor however just for completeness, I&rsquo;ll continue to explain how you get your page online without a CI tool.</p>
+<p>Type the following command from a PowerShell prompt in the root directory of your Hugo site to build the site:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>hugo
+</span></span></code></pre></div><p>If you have a look in the root directory, you&rsquo;ll now see a &lsquo;public&rsquo; folder which has all of your built content e.g. HTML, JavaScript, CSS etc.</p>
+<p>Change directory into the public folder and type the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>git checkout -b master
+</span></span><span style="display:flex;"><span>git add --all
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;Initial Hugo built site commit&#34;</span>
+</span></span><span style="display:flex;"><span>git push -u origin master 
+</span></span></code></pre></div><p>You should now have your website online and browsable at <a href="https://yourusername.github.io">https://yourusername.github.io</a> - take a moment to bask in its unfinished glory before we move on to the cool stuff!</p>
+<h2 id="step-3-using-appveyor-to-automate-the-hugo-build">Step 3. Using AppVeyor to automate the Hugo build</h2>
+<p>Having our newly generated website up and running already is cool but each time you add/modify any of the static content, the site will need to be rebuilt and pushed up to GitHub. That&rsquo;s at least two buttons more than I want to have to press so we&rsquo;re going to use AppVeyor to automate it for us.
+<br><br>
+Head over to <a href="https://www.appveyor.com/">AppVeyor</a> and sign up with GitHub if you haven&rsquo;t already got an account. Once you&rsquo;re logged in, you should be able to add your GitHub pages repo as a new project by clicking Projects &ndash;&gt; New Project and selecting your GitHub repo.</p>
+<p>At this point, we have two options on how we want to configure the project. You can edit the settings of your project and configure everything within the AppVeyor UI or you can create an appveyor.yml file with the relevant settings and place it in the root of your GitHub repo. Here&rsquo;s what you&rsquo;ll see in the AppVeyor UI:
+<br><br>
+<img src="https://matthorgan.xyz/img/appveyor-example-settings.PNG" alt=""></p>
+<p>You can see from the menu in the above screenshot that there are so many possibilities when it comes to the configuration of your project. A cool feature of the UI is that you can export to an appveyor.yml file which makes it really easy to understand what&rsquo;s going on. Another great way to understand all of the possible settings within an appveyor.yml file is to check out this reference guide <a href="https://www.appveyor.com/docs/appveyor-yml/">here</a>.<br>
+<em>Note: The UI and appveyor.yml are mutually exclusive so you&rsquo;ll have to pick one or the other.</em></p>
+<p>With so many options available, it&rsquo;s important to understand exactly what you want your build to accomplish. To stop me from going off on a tangent, I put together a basic flow for what I needed AppVeyor to do:</p>
+<ol>
+<li>Clone the &lsquo;source&rsquo; branch into the AppVeyor build</li>
+<li>Set up environment by installing Hugo</li>
+<li>Build site with Hugo</li>
+<li>Clone &lsquo;master&rsquo; branch of GitHub Pages repo</li>
+<li>Copy all newly generated content into the newly cloned &lsquo;master&rsquo; directory</li>
+<li>Add and commit new files to &lsquo;master&rsquo; branch</li>
+<li>Push new commits back up to master</li>
+</ol>
+<p>If you have a look back at the screenshot of the AppVeyor settings, you can see an option to specify a default branch. I made sure to set this to my &lsquo;source&rsquo; branch which ensures AppVeyor clones the &lsquo;source&rsquo; branch into the AppVeyor build.</p>
+<p>Below is the final appveyor.yml file that I ended up with (I&rsquo;ll explain it in more detail shortly). I pushed this to my &lsquo;source&rsquo; branch which instructs AppVeyor to execute the build every time something new is pushed to the source branch e.g. a new blog post.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#ae81ff">1.0</span><span style="color:#ae81ff">.{build}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">pull_requests</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">do_not_increment_build_number</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">source_dir</span>: <span style="color:#ae81ff">public</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">git_name</span>: <span style="color:#ae81ff">Matt Horgan</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">git_email</span>: <span style="color:#ae81ff">matt@matthorgan.xyz</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">target_dir</span>: <span style="color:#ae81ff">temp</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">target_branch</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">repo</span>: <span style="color:#ae81ff">https://github.com/matthorgan/matthorgan.github.io.git</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">access_token</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">secure</span>: <span style="color:#ae81ff">RcRrztcM59Im5xl40yelyNPtMZ8ydkEtFQ8nzen+4tcId4U8eT8yrTxTDOyUnJZu</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">install</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">cinst hugo</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">build_script</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">hugo</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add newly built site to the master branch </span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on_success</span>:
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git config --global credential.helper store&#34; 2&gt;&amp;1 </span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Add-Content &#34;$env:userprofile\.git-credentials&#34; &#34;https://$($env:access_token):x-oauth-basic@github.com`n&#34;</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">$revision = Invoke-Expression &#34;git rev-parse HEAD&#34; 2&gt;&amp;1 </span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">New-Item -Path $env:target_dir -ItemType Directory</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">cd .\$env:target_dir</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git clone --branch $env:target_branch $env:repo (Get-Location).Path&#34; 2&gt;&amp;1 </span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(&#34;.git&#34;,&#34;appveyor.yml&#34;)</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git config --global user.name $env:git_name&#34; 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git config --global user.email $env:git_email&#34; 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git add --all&#34; 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git commit --allow-empty -m &#39;Built from commit $revision&#39;&#34; 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git push origin $env:target_branch&#34; 2&gt;&amp;1 </span>
+</span></span></code></pre></div><p>Some of the settings are self-explanatory but I&rsquo;ll go through the different sections and explain what&rsquo;s going on:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">source_dir</span>: <span style="color:#ae81ff">public</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">git_name</span>: <span style="color:#ae81ff">Matt Horgan</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">git_email</span>: <span style="color:#ae81ff">matt@matthorgan.xyz</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">target_dir</span>: <span style="color:#ae81ff">temp</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">target_branch</span>: <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">repo</span>: <span style="color:#ae81ff">https://github.com/matthorgan/matthorgan.github.io.git</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">access_token</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">secure</span>: <span style="color:#ae81ff">RcRrztcM59Im5xl40yelyNPtMZ8ydkEtFQ8nzen+4tcId4U8eT8yrTxTDOyUnJZu</span>
+</span></span></code></pre></div><p>In the above section, we set up our environment variables which get used further down in the appveyor.yml file. The <strong>crucial</strong> part of this section is the secure access token which must be created to give AppVeyor permissions to push to your repo. For a great guide on how to set this up, check out <a href="https://www.appveyor.com/docs/how-to/git-push/">this article on the AppVeyor site</a>.</p>
+<p>The next interesting section of the AppVeyor YAML file is as shown:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">install</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">cinst hugo</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">build_script</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">cmd</span>: <span style="color:#ae81ff">hugo</span>
+</span></span></code></pre></div><p>The &lsquo;cinst hugo&rsquo; command tells AppVeyor to install Hugo using Chocolatey whilst the next line builds the site.</p>
+<p>Finally, the PowerShell section of the file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">on_success</span>:
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git config --global credential.helper store&#34; 2&gt;&amp;1 </span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Add-Content &#34;$env:userprofile\.git-credentials&#34; &#34;https://$($env:access_token):x-oauth-basic@github.com`n&#34;</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">$revision = Invoke-Expression &#34;git rev-parse HEAD&#34; 2&gt;&amp;1 </span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">New-Item -Path $env:target_dir -ItemType Directory</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">cd .\$env:target_dir</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git clone --branch $env:target_branch $env:repo (Get-Location).Path&#34; 2&gt;&amp;1 </span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Copy-Item -Path ..\$env:source_dir\* -Destination . -Recurse -Force -Exclude @(&#34;.git&#34;,&#34;appveyor.yml&#34;)</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git config --global user.name $env:git_name&#34; 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git config --global user.email $env:git_email&#34; 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git add --all&#34; 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span> - <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git commit --allow-empty -m &#39;Built from commit $revision&#39;&#34; 2&gt;&amp;1</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">ps</span>: <span style="color:#ae81ff">Invoke-Expression &#34;git push origin $env:target_branch&#34; 2&gt;&amp;1 </span>
+</span></span></code></pre></div><p>On the first two PowerShell lines, we set up our Git credentials to ensure we aren&rsquo;t prompted for a password utilising our access_token variable we created earlier. We then grab the Git revision number and store it in a variable before creating a new directory and changing into it. Next up, we clone the master branch from our Github repo into the folder we&rsquo;ve just changed into before recursively copying the &lsquo;public&rsquo; built site into the directory (excluding .git and appveyor.yml files).</p>
+<p>We now have all of the latest built files copied into the freshly cloned master repo folder. The last thing for us to do is to add our username and email to our Git config, stage the files and commit with reference to the revision number and push it to our master branch.</p>
+<p><em>Note: You might be wondering why all of the Git commands are ran using the Invoke-Expression command and redirect standard error to standard output (2&gt;&amp;1). Without this, it seems that the Appveyor shell treats some of the output from Git as standard error which produces horrible red text and obviously stops the build. By utilising the redirect and Invoke-Expression, the build successfully runs without error.</em></p>
+<br>
+That's all for now folks... I might come back and add a small section on setting up a custom domain at a later date.
+
+  </div>
+  <footer>
+  <p>
+  &copy; 2020 Matt Horgan.
+  Powered by <a href="https://gohugo.io/">Hugo</a>
+  using the <a href="https://github.com/koirand/pulp/">pulp</a> theme.
+  </p>
+</footer>
+
+
+  </body>
+</html>

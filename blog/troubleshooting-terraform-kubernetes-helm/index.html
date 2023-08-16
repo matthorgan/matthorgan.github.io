@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>
+      
+          Troubleshooting Terraform Kubernetes and Helm deployment - Matt&#39;s Blog
+      
+  </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Matt Horgan" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://matthorgan.xyz/img/favicon.ico">
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://matthorgan.xyz/style.min.39acacc5d2051426f655a6b7fbf4786fbd0fd8fffd09322c9b497ef0f7439b3f.css" integrity="sha256-OaysxdIFFCb2Vaa3&#43;/R4b70P2P/9CTIsm0l&#43;8PdDmz8=">
+  
+  
+  
+  <link rel="stylesheet" href="https://matthorgan.xyz/style-dark.min.0a647fb6c07e04b77b54fa0515d0a683d39ecdb251dba960fe1f966f7ff36fc2.css" media="(prefers-color-scheme: dark)" integrity="sha256-CmR/tsB&#43;BLd7VPoFFdCmg9OezbJR26lg/h&#43;Wb3/zb8I=">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  
+  
+
+  <meta property="og:title" content="Troubleshooting Terraform Kubernetes and Helm deployment" />
+<meta property="og:description" content="Troubleshooting Terraform Kubernetes and Helm deployment" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matthorgan.xyz/blog/troubleshooting-terraform-kubernetes-helm/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2019-09-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-09-23T00:00:00+00:00" />
+<meta itemprop="name" content="Troubleshooting Terraform Kubernetes and Helm deployment">
+<meta itemprop="description" content="Troubleshooting Terraform Kubernetes and Helm deployment"><meta itemprop="datePublished" content="2019-09-23T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2019-09-23T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1057">
+<meta itemprop="keywords" content="terraform,helm,kubernetes,devops,automation," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:image" content="https://matthorgan.xyz/img/avatar.jpg"/>
+<meta name="twitter:title" content="Troubleshooting Terraform Kubernetes and Helm deployment"/>
+<meta name="twitter:description" content="Troubleshooting Terraform Kubernetes and Helm deployment"/>
+
+  <!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <![endif]-->
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112770718-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+</head>
+
+  <body>
+    
+  <h1>Troubleshooting Terraform Kubernetes and Helm deployment</h1>
+  <header>
+  
+  <div class="avatar">
+    <img class="avatarMask" src="https://matthorgan.xyz/img/avatar.jpg" alt="">
+    <a href="https://matthorgan.xyz"><img class="avatar-border" src="https://matthorgan.xyz/img/avatar-border.svg" alt=""></a>
+  </div>
+  
+  <h2><a class="author" href="https://matthorgan.xyz">Matt Horgan</a></h2>
+</header>
+
+  
+  
+  
+  <p class="date">September 23, 2019</p>
+  
+  
+  
+  <div id="tags">
+    <ul>
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/terraform/">terraform</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/helm/">helm</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/kubernetes/">kubernetes</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/devops/">devops</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/automation/">automation</a></li>
+        
+      
+    </ul>
+  </div>
+  
+  
+  <div id="contentBody">
+    <p>I decided to rebuild my home lab Plex server using Kubernetes and a great Helm chart (<a href="https://github.com/munnerz/kube-plex">https://github.com/munnerz/kube-plex</a>) which
+dispatches transcode jobs as pods on the Kubernetes cluster. I wanted to do this in a fully automated fashion so that I could
+destroy and rebuild the whole infrastructure with one command thus saving me precious pennies and preventing any snowflake environments
+forming.</p>
+<p>I used Terraform to build the Azure Kubernetes Service (AKS) and all was going well until I tried integrating the Terraform
+Helm resources into my Terraform code. The AKS cluster was building absolutely fine but as soon as it got to the Helm resource,
+it immediately bombed with the following error:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Error<span style="color:#960050;background-color:#1e0010">:</span> error installing<span style="color:#960050;background-color:#1e0010">:</span> Post https<span style="color:#960050;background-color:#1e0010">:</span>//k8stest-aa211a06.hcp.ukwest.azmk8s.io<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">443</span>/apis/extensions/v1beta1/namespaces/kube-system/deployments<span style="color:#960050;background-color:#1e0010">:</span> 
+</span></span><span style="display:flex;"><span>dial tcp <span style="color:#ae81ff">92.242</span>.132.<span style="color:#ae81ff">15</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">443</span><span style="color:#960050;background-color:#1e0010">:</span> connectex<span style="color:#960050;background-color:#1e0010">:</span> A connection attempt failed because the connected party did not properly respond after a period of time,
+</span></span><span style="display:flex;"><span>or established connection failed because connected host has failed to respond.
+</span></span></code></pre></div><p>Reading the error at face value, it looked like the Helm resource couldn&rsquo;t connect to my Kubernetes cluster on the hostname <code>k8stest-aa211a06.hcp.ukwest.azmk8s.io</code>.
+This was strange because using <code>kubectl cluster-info</code> showed the cluster up and running:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Kubernetes master is running at https<span style="color:#960050;background-color:#1e0010">:</span>//k8stest-bbf7a87b.hcp.ukwest.azmk8s.io<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>CoreDNS is running at https<span style="color:#960050;background-color:#1e0010">:</span>//k8stest-bbf7a87b.hcp.ukwest.azmk8s.io<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">443</span>/api/v1/namespaces/kube-system/services/kube-dns<span style="color:#960050;background-color:#1e0010">:</span>dns/proxy
+</span></span><span style="display:flex;"><span>kubernetes-dashboard is running at https<span style="color:#960050;background-color:#1e0010">:</span>//k8stest-bbf7a87b.hcp.ukwest.azmk8s.io<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">443</span>/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
+</span></span><span style="display:flex;"><span>Metrics-server is running at https<span style="color:#960050;background-color:#1e0010">:</span>//k8stest-bbf7a87b.hcp.ukwest.azmk8s.io<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">443</span>/api/v1/namespaces/kube-system/services/https<span style="color:#960050;background-color:#1e0010">:</span>metrics-server<span style="color:#960050;background-color:#1e0010">:</span>/proxy
+</span></span></code></pre></div><p>If you&rsquo;re eagle eyed, you might have already spotted the issue here but at this point, I was still scratching my head.
+As Terraform is idempotent, I ran a <code>terraform apply --auto-approve</code> to try everything again. As the Cluster was already up and working,
+Terraform would realise this and only try and deploy the Helm resource again:</p>
+<p><code>Apply complete! Resources: 1 added, 0 changed, 0 destroyed.</code></p>
+<p>Err, right. So all I&rsquo;ve done is reapply the same Terraform configuration and now my Helm chart has successfully deployed to my AKS cluster?
+At this point I thought that perhaps my local kubectl environment hadn&rsquo;t been set up to point to the new AKS cluster I was created. I added
+a local_exec resource to initialise the environment with my AKS credentials just before I kick off the Helm resource:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>resource <span style="color:#e6db74">&#34;null_resource&#34;</span> <span style="color:#e6db74">&#34;initialise_kubectl&#34;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  provisioner <span style="color:#e6db74">&#34;local-exec&#34;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    command <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;az aks get-credentials --resource-group </span><span style="color:#e6db74">${</span>var.resource_group_name<span style="color:#e6db74">}</span><span style="color:#e6db74"> --name </span><span style="color:#e6db74">${</span>var.cluster_name<span style="color:#e6db74">}</span><span style="color:#e6db74"> --overwrite-existing&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  depends_on <span style="color:#f92672">=</span> <span style="color:#f92672">[</span>azurerm_kubernetes_cluster.k8s, azurerm_public_ip.plex_publicip<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>I destroyed my current Terraform environment and reran it and unfortunately got the same error:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Error<span style="color:#960050;background-color:#1e0010">:</span> error installing<span style="color:#960050;background-color:#1e0010">:</span> Post https<span style="color:#960050;background-color:#1e0010">:</span>//k8stest-bbf7a87b.hcp.ukwest.azmk8s.io<span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">443</span>/apis/extensions/v1beta1/namespaces/kube-system/deployments<span style="color:#960050;background-color:#1e0010">:</span> 
+</span></span><span style="display:flex;"><span>dial tcp <span style="color:#ae81ff">92.242</span>.132.<span style="color:#ae81ff">15</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">443</span><span style="color:#960050;background-color:#1e0010">:</span> connectex<span style="color:#960050;background-color:#1e0010">:</span> A connection attempt failed because the connected party did not properly respond after a period of time,
+</span></span><span style="display:flex;"><span>or established connection failed because connected host has failed to respond.
+</span></span></code></pre></div><p>Right, let&rsquo;s just check whether this hostname is resolvable:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Pinging k8stest-bbf7a87b.hcp.ukwest.azmk8s.io [<span style="color:#ae81ff">92.242</span>.132.<span style="color:#ae81ff">15</span>] with <span style="color:#ae81ff">32</span> bytes of data<span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>Request timed out.
+</span></span><span style="display:flex;"><span>Request timed out.
+</span></span><span style="display:flex;"><span>Request timed out.
+</span></span></code></pre></div><p>Nope. However, we know the Cluster has built successfully so this FQDN should definitely have an IP associated with it.
+Let&rsquo;s jump over to PowerShell and check what the Cluster looks like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-AzAks
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ProvisioningState       <span style="color:#960050;background-color:#1e0010">:</span> Succeeded
+</span></span><span style="display:flex;"><span>DnsPrefix               <span style="color:#960050;background-color:#1e0010">:</span> k8stest
+</span></span><span style="display:flex;"><span>Fqdn                    <span style="color:#960050;background-color:#1e0010">:</span> k8stest-134c5320.hcp.ukwest.azmk8s.io
+</span></span><span style="display:flex;"><span>KubernetesVersion       <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#ae81ff">1.13</span>.10
+</span></span><span style="display:flex;"><span>AgentPoolProfiles       <span style="color:#960050;background-color:#1e0010">:</span> {agentpool}
+</span></span><span style="display:flex;"><span>LinuxProfile            <span style="color:#960050;background-color:#1e0010">:</span> Microsoft.Azure.Commands.Aks.Models.PSContainerServiceLinuxProfile
+</span></span><span style="display:flex;"><span>ServicePrincipalProfile <span style="color:#960050;background-color:#1e0010">:</span> Microsoft.Azure.Commands.Aks.Models.PSContainerServiceServicePrincipalProfile
+</span></span><span style="display:flex;"><span>Id                      <span style="color:#960050;background-color:#1e0010">:</span> /subscriptions/ed31d49b-a568-490a-8ee2-0cbaec65bc9b/resourcegroups/azure-k8stest/providers/Microsoft.ContainerService/managedClusters/k8stest
+</span></span><span style="display:flex;"><span>Name                    <span style="color:#960050;background-color:#1e0010">:</span> k8stest
+</span></span><span style="display:flex;"><span>Type                    <span style="color:#960050;background-color:#1e0010">:</span> Microsoft.ContainerService/ManagedClusters
+</span></span><span style="display:flex;"><span>Location                <span style="color:#960050;background-color:#1e0010">:</span> ukwest
+</span></span><span style="display:flex;"><span>Tags                    <span style="color:#960050;background-color:#1e0010">:</span> {[<span style="color:#66d9ef">Environment, Development</span>]}
+</span></span></code></pre></div><p>Hold up a minute, that FQDN isn&rsquo;t the same one that Helm was trying to connect on. As everything
+in our code is dynamically generated, where is it getting this hostname from? I was scratching my head for a while
+and then saw that the hostname it&rsquo;s trying to connect to is actually the hostname of the previous build. So the hostname
+must be cached somewhere and it&rsquo;s picking up that one instead of the correct one. Looking at the config file in the <code>.kube</code> folder in
+my home directory, it was showing the correct hostname but within the <code>.kube</code> folder there&rsquo;s a <code>cache</code> folder that contains sub-folders
+of all of your previous builds so I started wondering whether it was picking up a cached hostname.</p>
+<p>Just in case this was a weird caching issue, I decided to delete my .kube folder because the AKS Terraform resource would recreate it as part of the build anyway but when
+I tried to run my <code>terraform apply</code> again, I got the following error:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Error<span style="color:#960050;background-color:#1e0010">:</span> CreateFile C:\Users\matth\.kube\config<span style="color:#960050;background-color:#1e0010">:</span> The system cannot find the path specified.
+</span></span></code></pre></div><p>With the above error, Terraform didn&rsquo;t even try to apply the configuration. The next step was to comment out the Helm section of
+the Terraform and low and behold; no compilation error.</p>
+<p>At this point it became pretty obvious what was going on. The Helm resource grabs your Kubernetes Cluster information from the <code>config</code> file in the <code>.kube</code> folder
+at the very start of your Terraform build. I was trying to dynamically create my Kubernetes config during the build
+with that <code>local-exec</code> command I mentioned earlier. Helm was basically picking up whatever was already in my Kubernetes config file
+and trying to connect to that. It just so happened that I&rsquo;d ran previous AKS builds and with each dynamic hostname being so similar,
+took a bit of digging around to get to the root cause.</p>
+<h2 id="solution">Solution</h2>
+<p>The quickest solution to this is to separate out the AKS configuration from the Helm configuration and ensure the Kubernetes config file
+is up to date with my latest AKS details <em>before</em> I run the Helm resource.</p>
+<p>However, a much better way to sort this is to configure the Terraform Helm Provider to accept the correct Kubernetes settings. The
+<code>azurerm_kubernetes_cluster</code> resource has a bunch of useful outputs that we can use to dynamically initialise Helm after our fresh Kubernetes
+cluster has been built:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>provider <span style="color:#e6db74">&#34;helm&#34;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  kubernetes <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    host                   <span style="color:#f92672">=</span> azurerm_kubernetes_cluster.aks_cluster.host
+</span></span><span style="display:flex;"><span>    client_certificate     <span style="color:#f92672">=</span> base64decode<span style="color:#f92672">(</span>azurerm_kubernetes_cluster.aks_cluster.client_certificate<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    client_key             <span style="color:#f92672">=</span> base64decode<span style="color:#f92672">(</span>azurerm_kubernetes_cluster.aks_cluster.client_key<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    cluster_ca_certificate <span style="color:#f92672">=</span> base64decode<span style="color:#f92672">(</span>azurerm_kubernetes_cluster.aks_cluster.cluster_ca_certificate<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>In the above code, we&rsquo;re telling Helm to use the values from our brand new Kubernetes cluster resource as opposed to just loading
+the default Kubernetes config file which it was doing before we had the Helm provider configured.</p>
+<p>One thing to note with providers is that as of Terraform v0.12, you can&rsquo;t use a <code>depends_on</code> to force it to wait for a
+specific resource. Luckily for us, Terraform works best with implicit dependencies - as we&rsquo;ve specified values that have come
+directly from our Kubernetes resource, the Helm provider will wait until it&rsquo;s complete until it initialises.</p>
+<h3 id="hacky-tip-of-the-day">Hacky tip of the day</h3>
+<p>If you ever need an explicit dependency for your Provider, I stumbled across this cool little work-around solution somebody
+suggested on GitHub: <a href="https://github.com/hashicorp/terraform/issues/2430#issuecomment-524547219">https://github.com/hashicorp/terraform/issues/2430#issuecomment-524547219</a></p>
+
+  </div>
+  <footer>
+  <p>
+  &copy; 2020 Matt Horgan.
+  Powered by <a href="https://gohugo.io/">Hugo</a>
+  using the <a href="https://github.com/koirand/pulp/">pulp</a> theme.
+  </p>
+</footer>
+
+
+  </body>
+</html>

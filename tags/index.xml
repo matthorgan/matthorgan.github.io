@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Matt&#39;s Blog</title>
+    <link>https://matthorgan.xyz/tags/</link>
+    <description>Recent content in Tags on Matt&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 28 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://matthorgan.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>automation</title>
+      <link>https://matthorgan.xyz/tags/automation/index.json</link>
+      <pubDate>Tue, 28 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/automation/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>devops</title>
+      <link>https://matthorgan.xyz/tags/devops/index.json</link>
+      <pubDate>Tue, 28 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/devops/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>powershell</title>
+      <link>https://matthorgan.xyz/tags/powershell/index.json</link>
+      <pubDate>Tue, 28 Feb 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/powershell/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>azure</title>
+      <link>https://matthorgan.xyz/tags/azure/index.json</link>
+      <pubDate>Thu, 05 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/azure/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>azcli</title>
+      <link>https://matthorgan.xyz/tags/azcli/index.json</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/azcli/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>chart-testing</title>
+      <link>https://matthorgan.xyz/tags/chart-testing/index.json</link>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/chart-testing/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gitlab</title>
+      <link>https://matthorgan.xyz/tags/gitlab/index.json</link>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/gitlab/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>helm</title>
+      <link>https://matthorgan.xyz/tags/helm/index.json</link>
+      <pubDate>Tue, 12 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/helm/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>actions</title>
+      <link>https://matthorgan.xyz/tags/actions/index.json</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/actions/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>appveyor</title>
+      <link>https://matthorgan.xyz/tags/appveyor/index.json</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/appveyor/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github</title>
+      <link>https://matthorgan.xyz/tags/github/index.json</link>
+      <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/github/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>https://matthorgan.xyz/tags/kubernetes/index.json</link>
+      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/kubernetes/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>terraform</title>
+      <link>https://matthorgan.xyz/tags/terraform/index.json</link>
+      <pubDate>Mon, 23 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/terraform/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>service manager</title>
+      <link>https://matthorgan.xyz/tags/service-manager/index.json</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/service-manager/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>system center</title>
+      <link>https://matthorgan.xyz/tags/system-center/index.json</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/system-center/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vagrant</title>
+      <link>https://matthorgan.xyz/tags/vagrant/index.json</link>
+      <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/vagrant/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virtualbox</title>
+      <link>https://matthorgan.xyz/tags/virtualbox/index.json</link>
+      <pubDate>Tue, 16 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/virtualbox/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dsc</title>
+      <link>https://matthorgan.xyz/tags/dsc/index.json</link>
+      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/dsc/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sql</title>
+      <link>https://matthorgan.xyz/tags/sql/index.json</link>
+      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/sql/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>invoke-command</title>
+      <link>https://matthorgan.xyz/tags/invoke-command/index.json</link>
+      <pubDate>Sun, 09 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/invoke-command/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>continuous integration</title>
+      <link>https://matthorgan.xyz/tags/continuous-integration/index.json</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/continuous-integration/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>development</title>
+      <link>https://matthorgan.xyz/tags/development/index.json</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/development/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>go</title>
+      <link>https://matthorgan.xyz/tags/go/index.json</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/go/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://matthorgan.xyz/tags/golang/index.json</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/golang/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo</title>
+      <link>https://matthorgan.xyz/tags/hugo/index.json</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/hugo/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>winops</title>
+      <link>https://matthorgan.xyz/tags/winops/index.json</link>
+      <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/winops/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ci/cd</title>
+      <link>https://matthorgan.xyz/tags/ci/cd/index.json</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/ci/cd/index.json</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gpupdate /force</title>
+      <link>https://matthorgan.xyz/tags/gpupdate-/force/index.json</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/tags/gpupdate-/force/index.json</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
