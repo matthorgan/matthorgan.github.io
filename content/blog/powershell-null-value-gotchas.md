@@ -15,6 +15,9 @@ categories = [
 ]
 +++
 
+In this blog post, I'll be covering a fun little 'gotcha' that has caught me out over the years, and the explanation
+for why it happens.
+
 ## Handling Null Values
 
 In PowerShell, there are several ways to check for a null value in a variable. One of the standard ways looks like this:
