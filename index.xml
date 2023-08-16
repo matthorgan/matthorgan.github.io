@@ -26,6 +26,17 @@ PSNativeCommandErrorActionPreference is a preference variable that when set to t
     </item>
     
     <item>
+      <title>Handling null values in PowerShell and the sneaky gotcha that might catch you out</title>
+      <link>https://matthorgan.xyz/blog/powershell-type-value-gotchas/</link>
+      <pubDate>Thu, 15 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://matthorgan.xyz/blog/powershell-type-value-gotchas/</guid>
+      <description>In this blog post, I&amp;rsquo;ll be covering a fun little &amp;lsquo;gotcha&amp;rsquo; that has caught me out over the years, and the explanation for why it happens.
+Handling Null Values In PowerShell, there are several ways to check for a null value in a variable. One of the standard ways looks like this:
+$MyVariable = $null if ($null -eq $MyVariable) { &amp;#34;The variable is null&amp;#34; } The variable is null Another option is to use the static .</description>
+    </item>
+    
+    <item>
       <title>Azure CLI Error Handling in PowerShell</title>
       <link>https://matthorgan.xyz/blog/azcli-error-handling-in-powershell/</link>
       <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>

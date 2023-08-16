@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>
+      
+          Handling null values in PowerShell and the sneaky gotcha that might catch you out - Matt&#39;s Blog
+      
+  </title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Matt Horgan" />
+  <link rel="shortcut icon" type="image/x-icon" href="https://matthorgan.xyz/img/favicon.ico">
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://matthorgan.xyz/style.min.39acacc5d2051426f655a6b7fbf4786fbd0fd8fffd09322c9b497ef0f7439b3f.css" integrity="sha256-OaysxdIFFCb2Vaa3&#43;/R4b70P2P/9CTIsm0l&#43;8PdDmz8=">
+  
+  
+  
+  <link rel="stylesheet" href="https://matthorgan.xyz/style-dark.min.0a647fb6c07e04b77b54fa0515d0a683d39ecdb251dba960fe1f966f7ff36fc2.css" media="(prefers-color-scheme: dark)" integrity="sha256-CmR/tsB&#43;BLd7VPoFFdCmg9OezbJR26lg/h&#43;Wb3/zb8I=">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  
+  
+
+  <meta property="og:title" content="Handling null values in PowerShell and the sneaky gotcha that might catch you out" />
+<meta property="og:description" content="Handling null values in PowerShell and the sneaky gotcha that might catch you out" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://matthorgan.xyz/blog/powershell-type-value-gotchas/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2022-09-15T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-09-15T00:00:00+00:00" />
+<meta itemprop="name" content="Handling null values in PowerShell and the sneaky gotcha that might catch you out">
+<meta itemprop="description" content="Handling null values in PowerShell and the sneaky gotcha that might catch you out"><meta itemprop="datePublished" content="2022-09-15T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-09-15T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1078">
+<meta itemprop="keywords" content="powershell,automation,ci/cd,devops," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:image" content="https://matthorgan.xyz/img/avatar.jpg"/>
+<meta name="twitter:title" content="Handling null values in PowerShell and the sneaky gotcha that might catch you out"/>
+<meta name="twitter:description" content="Handling null values in PowerShell and the sneaky gotcha that might catch you out"/>
+
+  <!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+  <!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+  <![endif]-->
+
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112770718-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+  
+</head>
+
+  <body>
+    
+  <h1>Handling null values in PowerShell and the sneaky gotcha that might catch you out</h1>
+  <header>
+  
+  <div class="avatar">
+    <img class="avatarMask" src="https://matthorgan.xyz/img/avatar.jpg" alt="">
+    <a href="https://matthorgan.xyz"><img class="avatar-border" src="https://matthorgan.xyz/img/avatar-border.svg" alt=""></a>
+  </div>
+  
+  <h2><a class="author" href="https://matthorgan.xyz">Matt Horgan</a></h2>
+</header>
+
+  
+  
+  
+  <p class="date">September 15, 2022</p>
+  
+  
+  
+  <div id="tags">
+    <ul>
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/powershell/">powershell</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/automation/">automation</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/ci/cd/">ci/cd</a></li>
+        
+      
+        
+        
+          <li><a href="https://matthorgan.xyz/tags/devops/">devops</a></li>
+        
+      
+    </ul>
+  </div>
+  
+  
+  <div id="contentBody">
+    <p>In this blog post, I&rsquo;ll be covering a fun little &lsquo;gotcha&rsquo; that has caught me out over the years, and the explanation
+for why it happens.</p>
+<h2 id="handling-null-values">Handling Null Values</h2>
+<p>In PowerShell, there are several ways to check for a null value in a variable. One of the standard ways looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$MyVariable = $null
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ($null <span style="color:#f92672">-eq</span> $MyVariable) {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;The variable is null&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The variable is null
+</span></span></code></pre></div><p>Another option is to use the static .NET String class and call the <code>IsNullOrEmpty</code> method like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$MyVariable = $null
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ([<span style="color:#66d9ef">String</span>]::IsNullOrEmpty($MyVariable)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;The variable is null&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The variable is null
+</span></span></code></pre></div><p>Or, if you want to handle whitespace too, you could use the <code>IsNullOrWhiteSpace</code> method:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Whitespace variable that we want to check for</span>
+</span></span><span style="display:flex;"><span>$MyVariable = <span style="color:#e6db74">&#39; &#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ([<span style="color:#66d9ef">String</span>]::IsNullOrWhiteSpace($MyVariable)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;The variable is null or is whitespace&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>The variable is null or is whitespace
+</span></span></code></pre></div><h2 id="the-null-string-gotcha">The Null String &lsquo;Gotcha&rsquo;</h2>
+<p>A lot of the time, I found myself opting for the <code>IsNullOrWhiteSpace</code> option because I&rsquo;d previously been caught out by
+<code>$null -eq $MyVariable</code> not giving me the result I was expecting. I never fully understood why until recently when I was
+caught out once again.</p>
+<p>A significant portion of my PowerShell scripts and functions are used in CI/CD pipelines, where environment variables
+inherited from the CI/CD tool, such as a hostname or username, can be present. Instead of explicitly passing every
+variable into my scripts/functions, I use a pattern like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> New-ExampleFunction {
+</span></span><span style="display:flex;"><span>    [CmdletBinding()]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">param</span> (
+</span></span><span style="display:flex;"><span>        [Parameter(<span style="color:#a6e22e">Mandatory</span> = $false)]
+</span></span><span style="display:flex;"><span>        [ValidateNotNullOrEmpty()]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">String</span>]$MyVariable = $env:VAR_FROM_CI_ENVIRONMENT
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    Write-Host $MyVariable
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>As seen in the above function, the environment variable <code>VAR_FROM_CI_ENVIRONMENT</code> is available within the pipeline
+of our CI/CD tool. Therefore, we don&rsquo;t need to provide a value for <code>$MyVariable</code> explicitly in this case.
+This approach offers the flexibility of passing a value to the parameter if desired, while defaulting to the known
+environment variable otherwise.</p>
+<p>The issue however, is that outside the scope of our CI/CD environment, what happens if somebody doesn&rsquo;t pass in a value
+for <code>$MyVariable</code> and they don&rsquo;t have the <code>$env:VAR_FROM_CI_ENVIRONMENT</code> environment variable configured? We need to add
+an additional bit of validation in our function to ensure that <code>$MyVariable</code> contains a value if one isn&rsquo;t passed in
+(The <code>[ValidateNotNullOrEmpty()]</code> is only validating values being passed in to $MyVariable, and not something we set as a default value).</p>
+<p>Adding some validation to the above function to check for null can create a nasty little gotcha and this is the main topic
+for this blog post. I added a traditional <code>$null -eq $MyVariable</code> check to ensure if <code>$MyVariable</code> was null and expected
+that it would throw a message and stop the function (Assuming nothing
+had been passed in OR the <code>$env:VAR_FROM_CI_ENVIRONMENT</code> environment variable hadn&rsquo;t been set):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># This does not produce the expected outcome</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> New-ExampleFunction {
+</span></span><span style="display:flex;"><span>    [CmdletBinding()]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">param</span> (
+</span></span><span style="display:flex;"><span>        [Parameter(<span style="color:#a6e22e">Mandatory</span> = $false)]
+</span></span><span style="display:flex;"><span>        [ValidateNotNullOrEmpty()]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">String</span>]$MyVariable = $env:VAR_FROM_CI_ENVIRONMENT
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($null <span style="color:#f92672">-eq</span> $MyVariable) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#e6db74">&#39;The value for parameter &#34;MyVariable&#34; is blank. Please pass in a value or check the env var $env:VAR_FROM_CI_ENVIRONMENT is set&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    Write-Host $MyVariable
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>When you run the above function without passing in a value for <code>$MyVariable</code>, and ensuring the <code>VAR_FROM_CI_ENVIRONMENT</code>
+env var is not set, nothing happens and we don&rsquo;t see the error message we&rsquo;re expecting.</p>
+<p>Well that&rsquo;s not what I was expecting?! Checking that the env var is definitely not set by running <code>$null -eq $env:VAR_FROM_CI_ENVIRONMENT</code>
+comes back as <code>True</code> so it definitely IS null. Why isn&rsquo;t PowerShell recognising it as null?</p>
+<p>If we change how we&rsquo;re checking for null to use the static string class method, look what happens:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># This DOES produce the expected outcome</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> New-ExampleFunction {
+</span></span><span style="display:flex;"><span>    [CmdletBinding()]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">param</span> (
+</span></span><span style="display:flex;"><span>        [Parameter(<span style="color:#a6e22e">Mandatory</span> = $false)]
+</span></span><span style="display:flex;"><span>        [ValidateNotNullOrEmpty()]
+</span></span><span style="display:flex;"><span>        [<span style="color:#66d9ef">String</span>]$MyVariable = $env:VAR_FROM_CI_ENVIRONMENT
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ([<span style="color:#66d9ef">String</span>]::IsNullOrEmpty($MyVariable)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#e6db74">&#39;The value for parameter &#34;MyVariable&#34; is blank. Please pass in a value or check the env var $env:VAR_FROM_CI_ENVIRONMENT is set&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    Write-Host $MyVariable
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Exception: 
+</span></span><span style="display:flex;"><span>Line |
+</span></span><span style="display:flex;"><span>  14 |          throw &#39;The value for parameter &#34;MyVariable&#34; is blank. Please  …
+</span></span><span style="display:flex;"><span>     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</span></span><span style="display:flex;"><span>     | The value for parameter &#34;MyVariable&#34; is blank. Please pass in a value or check the env var $env:VAR_FROM_CI_ENVIRONMENT is set
+</span></span></code></pre></div><p>This is now working as expected. But why? In the past I used to just change the <code>$null -eq $MyVariable</code> syntax to
+<code>[String]::IsNullOrWhiteSpace()</code>, wrongly assuming that the variable must have been whitespace but as you can see from
+the above working code, we&rsquo;re using <code>[String]::IsNullOrEmpty()</code> so that theory has been proved to be incorrect.</p>
+<p>Look what happens when we remove the <code>[String]</code> casting from the function and we go back to using our <code>$null -eq $MyVariable</code>
+syntax:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> New-ExampleFunction {
+</span></span><span style="display:flex;"><span>    [CmdletBinding()]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">param</span> (
+</span></span><span style="display:flex;"><span>        [Parameter(<span style="color:#a6e22e">Mandatory</span> = $false)]
+</span></span><span style="display:flex;"><span>        [ValidateNotNullOrEmpty()]
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Note the [String] has now been removed</span>
+</span></span><span style="display:flex;"><span>        $MyVariable = $env:VAR_FROM_CI_ENVIRONMENT
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ($null <span style="color:#f92672">-eq</span> $MyVariable) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> <span style="color:#e6db74">&#39;The value for parameter &#34;MyVariable&#34; is blank. Please pass in a value or check the env var $env:VAR_FROM_CI_ENVIRONMENT is set&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Write-Host $MyVariable
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We now see the error message that we were hoping to see originally (and that we saw with the <code>[String]::IsNullOrEmpty()</code> method):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Exception: 
+</span></span><span style="display:flex;"><span>Line |
+</span></span><span style="display:flex;"><span>  14 |          throw &#39;The value for parameter &#34;MyVariable&#34; is blank. Please  …
+</span></span><span style="display:flex;"><span>     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+</span></span><span style="display:flex;"><span>     | The value for parameter &#34;MyVariable&#34; is blank. Please pass in a value or check the env var $env:VAR_FROM_CI_ENVIRONMENT is set
+</span></span></code></pre></div><h3 id="conclusion">Conclusion</h3>
+<p>Alrighty then. So it seems that casting the parameter <code>MyVariable</code> to a string is causing our original null comparison to fail.
+The reason for this is that when we add the <code>[String]</code> to our parameter <code>$MyVariable</code> and we don&rsquo;t pass in a value, it
+takes the <code>$env:VAR_FROM_CI_ENVIRONMENT</code> and converts it into an empty string. When you strongly type a value type in PowerShell,
+it will convert <code>$null</code> into whatever the default value is for the type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">int</span>]$number = $null
+</span></span><span style="display:flex;"><span>$number
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">bool</span>]$boolean = $null
+</span></span><span style="display:flex;"><span>$boolean
+</span></span><span style="display:flex;"><span>False
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">string</span>]$string = $null
+</span></span><span style="display:flex;"><span>$string <span style="color:#f92672">-eq</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>True
+</span></span></code></pre></div><p>This explains the initial failure of our <code>$null -eq $MyVariable</code> example. PowerShell is converting the empty <code>$MyVariable</code> into
+the default value for a string and an empty string is not truly null.
+Using the string class method <code>[String]::IsNullOrEmpty()</code> ensures proper handling of an empty string.</p>
+<p>When <code>$MyVariable</code> wasn&rsquo;t strongly typed to any specific type, the <code>$null -eq $MyVariable</code> comparison worked because,
+at that point, PowerShell didn&rsquo;t know the type and therefore didn&rsquo;t convert it to a default value of any specific type</p>
+<p>And there we have it. I can finally sleep a little easier now that I have a clear picture of the potential
+type-related issues when evaluating <code>$null</code> and why they occur.</p>
+
+  </div>
+  <footer>
+  <p>
+  &copy; 2020 Matt Horgan.
+  Powered by <a href="https://gohugo.io/">Hugo</a>
+  using the <a href="https://github.com/koirand/pulp/">pulp</a> theme.
+  </p>
+</footer>
+
+
+  </body>
+</html>
