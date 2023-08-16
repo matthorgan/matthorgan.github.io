@@ -2,17 +2,16 @@
 title = "Handling null values in PowerShell and the sneaky gotcha that might catch you out"
 description = "Handling null values in PowerShell and the sneaky gotcha that might catch you out"
 tags = [
-    "appveyor",
-    "github",
-    "actions",
-    "devops",
-    "ci/cd"
+    "powershell",
+    "automation",
+    "ci/cd",
+    "devops"
 ]
-date = "2023-09-16"
+date = "2023-09-15"
 categories = [
     "Development",
-    "DevOps",
-    "CI/CD"
+    "Automation",
+    "DevOps"
 ]
 +++
 
