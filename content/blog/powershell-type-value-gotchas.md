@@ -16,8 +16,8 @@ categories = [
 +++
 
 
-In this blog post, I'll be covering a fun little 'gotcha' that has caught me out over the years, and the explanation
-for why it happens.
+In this blog post, I'll be covering a fun little null value related 'gotcha' that has caught me out over the years, and the explanation
+for why it happens. Let's jump right in with how we handle null values and the issues I've come across in the past.
 
 ## Handling Null Values
 
